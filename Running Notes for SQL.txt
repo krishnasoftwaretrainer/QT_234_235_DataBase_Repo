@@ -1,0 +1,169 @@
+New BAtch DataBase - 234 and 235
+DataBase:
+--------
+Web Application: Software Developers
+3 Layers
+FrontEnd:
+--------
+1.Presentation Layer[UI]
+HTML CSS JS JQ BS RJS NJS AJS etc...
+
+BackEnd:
+-------
+2.Logical/Functonal Layer[Coding]-> Working/Validations/Logics [2+3=5]
+Programming Languages:C C++ Java Python .net JS TS Ruby etc...
+Programs/Coding:
+
+3.DataBase Layer[SQL]->Storage
+Data/Information:Store 
+Images Text Audio Video Animations etc..
+SQL Queries Formet:
+
+SQL:
+OracleDB: https://www.oracle.com/database/technologies/xe-prior-release-downloads.html
+
+2Parts:FrontEnd[UI]+BackEnd
+Client-Server:
+
+1.Basic or Theory Concepts
+2.Basic SQL Queries
+2.Advanced SQL Queries
+
+GitHub Account:
+
+Trainer:Krishna
+
+
+DataBase:
+--------
+Servers:Store or Retrive
+
+Client-Server Architecture:
+Presentation:
+Logical
+DataBase
+
+Computer:
+
+Data:Collection of Raw Facts
+Ex:Krishna   Ramesh 
+No meaning of data 
+
+Information:Processed data is called information
+
+Ex:N Krishna Hyd QT STT Male 307
+
+Storing[DBD or EU]:Future Communication 
+Retrive[EU]:Mobiles:Concats:Krishna Sir 
+
+Open database:Any one can access
+Secure database:
+CRUD:Create Retrive/Read/View Update Delete
+
+Table Formet:Collection of Rows and Columns
+
+DataBase:One database contains one or more than one database tables.
+
+CRUD:Create Retrive Update Delete
+
+Duplicate[Names] or Unique[HTNO or Adhar]
+
+DBMS:Software:DataBase Management System
+add delete update create
+Single Database
+
+RDBMS:Software:Relational DataBase Management System
+Relation Ship:
+Duplicate TimeWaste Memory
+
+OracleDB MYSQL etc...
+
+
+Database:
+--------
+DBMS and RDBMS:College Database:
+
+Rapido:Google Maps
+Zomato:Google Maps
+
+CRUD Operations:
+Create[Database or Table]
+Insert/Store
+Retrive/Select/Open 
+Update/Modify 
+Delete/Drop
+
+Client-Server Architecture in RDBMS:
+--------------
+2Tier Architecture
+3Tier Architecture
+
+SQL> alter table student add(percentage number(3));
+
+Table altered.
+
+
+SQL> alter table student modify(sid varchar2(10));
+
+Table altered.
+
+SQL> alter table student rename column sid to StudentId;
+
+Table altered.
+
+SQL> rename employee5 to employee;
+
+Table renamed.
+
+SQL> ALTER TABLE student DROP column studentid;
+
+Table altered.
+
+RDBMS:Oracle Software:CRUD 
+First Create DataBase
+Perform CRUD Operations
+Create Table
+Insert Data 
+Update Data 
+Select Data 
+Delete Data 
+
+Download and Install OracleDB:
+-----------------------------
+Queries
+GitHub Account:LMS
+11g:Stable Version[.exe]  21c
+
+SQL:Queries formet
+
+DBA:User/DataBase Grant Permissions
+User:Actions 
+Create User:
+Syntax:create user username identified by password;
+SQL> create user qt235 identified by qt235;
+
+all=CRUD 
+
+SQL Commands:
+-------------
+1.DDL:Data Defination Language
+Create
+Alter
+Rename
+Drop
+Truncate
+
+2.DML:Data Manipulation Language
+Insert
+Select
+Update
+Delete
+
+3.DCL:Data Control Language
+Grant
+Revoke
+
+4.TCL:Transaction Control Language
+Commit
+RollBack
+SavePoint 

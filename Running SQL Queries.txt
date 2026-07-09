@@ -1,0 +1,51 @@
+
+SQL> connect / as sysdba;
+Connected.
+SQL> create user qt235 identified by qt235;
+
+User created.
+
+SQL> connect qt235;
+Enter password:
+ERROR:
+ORA-01045: user QT235 lacks CREATE SESSION privilege; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> connect / as sysdba;
+Connected.
+SQL> grant all privileges to qt235;
+
+Grant succeeded.
+
+SQL> connect qt235;
+Enter password:
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> connect qt235;
+Enter password:
+Connected.
+SQL> revoke all privileges from qt235;
+
+Revoke succeeded.
+
+SQL> connect qt235;
+Enter password:
+ERROR:
+ORA-01045: user QT235 lacks CREATE SESSION privilege; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> connect / as sysdba;
+Connected.
+SQL> grant all privileges to qt235;
+
+Grant succeeded.
+
+SQL> connect qt235;
+Enter password:
+Connected.
+SQL>
