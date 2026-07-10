@@ -147,21 +147,55 @@ all=CRUD
 SQL Commands:
 -------------
 1.DDL:Data Defination Language
-Create
-Alter
-Rename
-Drop
-Truncate
+
+Create:Create new database Table structure.
+Syntax:create table tablename(Column1 datatype(size),Column2 datatype size(2),etc....);
+Size:3:You can enter values upto 3digits.
+1:0 to 9
+2:0 to 99
+3:0 to 999 
+Krishna 12
+
+Describe Query:It displayes the structure of table.
+desc tablename;
+
+Alter:
+->Add New Column
+Syntax:alter table tablename add columnname datatype(size);
+
+->Modify existing column[datatype or size]
+Syntax:alter table tablename modify columnname new datatype(size);
+
+->Rename Column name 
+Syntax:alter table tablename rename column oldcolumnname to newcolumnname;
+
+alter rename:sub to sub2 
+
+Create New table by using existing data table structure.
+Syntax:create table newtablename as select * from oldtablename;
+
+->Drop the Column
+Syntax:alter table tablename drop column columnname;
+
+Rename of Table:Rename the Table name.
+Syntax:rename oldtablename to newtablename;
+
+Drop:Drop the table.
+It perminetly delete the table structure.
+Syntax:drop table tablename;
+
+Truncate:
+Structure of the Table.
 
 2.DML:Data Manipulation Language
 Insert
 Select
-Update
+Update:Krishna to Suresh
 Delete
 
-3.DCL:Data Control Language
-Grant
-Revoke
+3.DCL:Data Control Language[SYSDBA]
+Grant:Granting privileges to new user.
+Revoke:Retrive the privileges from existing user.
 
 4.TCL:Transaction Control Language
 Commit
