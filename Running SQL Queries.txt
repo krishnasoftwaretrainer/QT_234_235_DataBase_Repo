@@ -377,3 +377,311 @@ SQL> desc stu1;
  SUB3                                               NUMBER(2)
 
 SQL>
+==============================
+
+SQL*Plus: Release 11.2.0.2.0 Production on Sat Jul 11 09:43:35 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qt235
+Enter password:
+Connected.
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+STU1                           TABLE
+
+SQL> desc stu1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HTNO                                               NUMBER(3)
+ SNAME                                              VARCHAR2(10)
+ SUB1                                               NUMBER(2)
+ SUB2                                               NUMBER(2)
+ SUB3                                               NUMBER(2)
+
+SQL> select * from stu1;
+
+no rows selected
+
+SQL> insert into stu1 values(101,'Krishna',99,98,97);
+
+1 row created.
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+
+SQL> select * from stu1 where sname='Krishna';
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+
+SQL> select * from stu1 where sname='Ramesh';
+
+no rows selected
+
+SQL> insert into stu1 values(102,'Mahesh',99,97,95);
+
+1 row created.
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+
+SQL> insert into stu1 values(103,'Kiran',55,45,65);
+
+1 row created.
+
+SQL> insert into stu1 values(104,'Shyam',89,91,78);
+
+1 row created.
+
+SQL> insert into stu1 values(105,'Sunitha',56,68,999);
+insert into stu1 values(105,'Sunitha',56,68,999)
+                                            *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column
+
+
+SQL> insert into stu1 values(105,Sunitha,56,68,99);
+insert into stu1 values(105,Sunitha,56,68,99)
+                            *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> insert into stu1 values(105,'Sunitha',56,68,99);
+
+1 row created.
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+
+SQL> insert into stu1 values(105,'Sunitha',56,68);
+insert into stu1 values(105,'Sunitha',56,68)
+            *
+ERROR at line 1:
+ORA-00947: not enough values
+
+
+SQL> insert into stu1 values(105,'Sunitha');
+insert into stu1 values(105,'Sunitha')
+            *
+ERROR at line 1:
+ORA-00947: not enough values
+
+
+SQL> insert into stu1(htno,sname) values(106,'Anil');
+
+1 row created.
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil
+
+6 rows selected.
+
+SQL> insert into stu1(htno,sname,sub1,sub3) values(107,'Balu',55,67);
+
+1 row created.
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil
+       107 Balu               55                    67
+
+7 rows selected.
+
+
+SQL> create table facebook(firstname varchar2(20),surname varchar2(20),day number(2),month varchar2(12),year number(4),gender varchar2(10),mobilenumber number(10),password varchar2(15));
+
+Table created.
+
+SQL> desc facebook123;
+ERROR:
+ORA-04043: object facebook123 does not exist
+
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+FACEBOOK                       TABLE
+STU1                           TABLE
+
+SQL> desc facebook;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FIRSTNAME                                          VARCHAR2(20)
+ SURNAME                                            VARCHAR2(20)
+ DAY                                                NUMBER(2)
+ MONTH                                              VARCHAR2(12)
+ YEAR                                               NUMBER(4)
+ GENDER                                             VARCHAR2(10)
+ MOBILENUMBER                                       NUMBER(10)
+ PASSWORD                                           VARCHAR2(15)
+
+SQL> desc stu1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HTNO                                               NUMBER(3)
+ SNAME                                              VARCHAR2(10)
+ SUB1                                               NUMBER(2)
+ SUB2                                               NUMBER(2)
+ SUB3                                               NUMBER(2)
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil
+       107 Balu               55                    67
+
+7 rows selected.
+
+SQL> desc facebook123;
+ERROR:
+ORA-04043: object facebook123 does not exist
+
+
+SQL> desc facebook;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FIRSTNAME                                          VARCHAR2(20)
+ SURNAME                                            VARCHAR2(20)
+ DAY                                                NUMBER(2)
+ MONTH                                              VARCHAR2(12)
+ YEAR                                               NUMBER(4)
+ GENDER                                             VARCHAR2(10)
+ MOBILENUMBER                                       NUMBER(10)
+ PASSWORD                                           VARCHAR2(15)
+
+SQL> insert into facebook values(&firstname,&SURNAME,&day,&MONTH,&YEAR,&GENDER,&MOBILENUMBER,&PASSWORD);
+Enter value for firstname: 'Rama'
+Enter value for surname: 'Rao'
+Enter value for day: 10
+Enter value for month: 'May'
+Enter value for year: 1999
+Enter value for gender: 'Male'
+Enter value for mobilenumber: '1234567890'
+Enter value for password: 'Ram#123'
+old   1: insert into facebook values(&firstname,&SURNAME,&day,&MONTH,&YEAR,&GENDER,&MOBILENUMBER,&PASSWORD)
+new   1: insert into facebook values('Rama','Rao',10,'May',1999,'Male','1234567890','Ram#123')
+
+1 row created.
+
+SQL> select * from facebook;
+
+FIRSTNAME            SURNAME                     DAY MONTH              YEAR
+-------------------- -------------------- ---------- ------------ ----------
+GENDER     MOBILENUMBER PASSWORD
+---------- ------------ ---------------
+Rama                 Rao                          10 May                1999
+Male         1234567890 Ram#123
+
+
+SQL> show pagesize;
+pagesize 14
+SQL> set pagesize 40;
+SQL> select * from facebook;
+
+FIRSTNAME            SURNAME                     DAY MONTH              YEAR
+-------------------- -------------------- ---------- ------------ ----------
+GENDER     MOBILENUMBER PASSWORD
+---------- ------------ ---------------
+Rama                 Rao                          10 May                1999
+Male         1234567890 Ram#123
+
+
+SQL> show linesize;
+linesize 80
+SQL> set linesize 200;
+SQL> select * from facebook;
+
+FIRSTNAME            SURNAME                     DAY MONTH              YEAR GENDER     MOBILENUMBER PASSWORD
+-------------------- -------------------- ---------- ------------ ---------- ---------- ------------ ---------------
+Rama                 Rao                          10 May                1999 Male         1234567890 Ram#123
+
+SQL> /
+
+FIRSTNAME            SURNAME                     DAY MONTH              YEAR GENDER     MOBILENUMBER PASSWORD
+-------------------- -------------------- ---------- ------------ ---------- ---------- ------------ ---------------
+Rama                 Rao                          10 May                1999 Male         1234567890 Ram#123
+
+SQL> //
+
+FIRSTNAME            SURNAME                     DAY MONTH              YEAR GENDER     MOBILENUMBER PASSWORD
+-------------------- -------------------- ---------- ------------ ---------- ---------- ------------ ---------------
+Rama                 Rao                          10 May                1999 Male         1234567890 Ram#123
+
+SQL> insert into facebook values(&firstname,&SURNAME,&day,&MONTH,&YEAR,&GENDER,&MOBILENUMBER,&PASSWORD);
+Enter value for firstname: 'Krishna'
+Enter value for surname: 'Mohan'
+Enter value for day: 15
+Enter value for month: 'June'
+Enter value for year: '2000'
+Enter value for gender: 'Male'
+Enter value for mobilenumber: '11111111'
+Enter value for password: 'Krishna321'
+old   1: insert into facebook values(&firstname,&SURNAME,&day,&MONTH,&YEAR,&GENDER,&MOBILENUMBER,&PASSWORD)
+new   1: insert into facebook values('Krishna','Mohan',15,'June','2000','Male','11111111','Krishna321')
+
+1 row created.
+
+SQL> /
+Enter value for firstname: 'gffgdf'
+Enter value for surname: 'sdggf'
+Enter value for day: 22
+Enter value for month: 'efrerer'
+Enter value for year: 1998
+Enter value for gender: 'frrrf'
+Enter value for mobilenumber: 12345
+Enter value for password: 'ferfe'
+old   1: insert into facebook values(&firstname,&SURNAME,&day,&MONTH,&YEAR,&GENDER,&MOBILENUMBER,&PASSWORD)
+new   1: insert into facebook values('gffgdf','sdggf',22,'efrerer',1998,'frrrf',12345,'ferfe')
+
+1 row created.
+
+SQL> select * from facebook;
+
+FIRSTNAME            SURNAME                     DAY MONTH              YEAR GENDER     MOBILENUMBER PASSWORD
+-------------------- -------------------- ---------- ------------ ---------- ---------- ------------ ---------------
+Rama                 Rao                          10 May                1999 Male         1234567890 Ram#123
+Krishna              Mohan                        15 June               2000 Male           11111111 Krishna321
+gffgdf               sdggf                        22 efrerer            1998 frrrf             12345 ferfe
+
+SQL>

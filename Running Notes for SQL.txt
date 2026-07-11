@@ -188,8 +188,23 @@ Truncate:
 Structure of the Table.
 
 2.DML:Data Manipulation Language
-Insert
-Select
+Insert:Insert/Store data/information in already created database table.
+
+Type1:Insert all column values.
+Syntax:insert into tablename values(value1,'value2',etc...);
+EX:SQL> insert into stu1 values(101,'Krishna',99,98,97);
+O/P: 1 row created.
+Type2:Insert values into specfic columns.
+Syntax: insert into tablename(Column1,Column2) values(value1,value2);
+
+Type3:Insert all column values continues.
+Syntax:insert into tablename values(&columnname1,&columnname2,...);
+Column1 Value:
+Column2 Value:
+
+Select:To select or view the inserted all records or specfic records or columns.
+Syntax:select * from tablename;
+
 Update:Krishna to Suresh
 Delete
 
@@ -201,3 +216,7 @@ Revoke:Retrive the privileges from existing user.
 Commit
 RollBack
 SavePoint 
+
+Student:5Cloumns
+Employee:5Cloumns
+Customer:5Cloumns
