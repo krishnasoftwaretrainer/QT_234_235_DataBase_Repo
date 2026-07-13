@@ -685,3 +685,524 @@ Krishna              Mohan                        15 June               2000 Mal
 gffgdf               sdggf                        22 efrerer            1998 frrrf             12345 ferfe
 
 SQL>
+==============================================
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Jul 13 09:39:07 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect db235
+Enter password:
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SQL> connect qt235
+Enter password:
+Connected.
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+FACEBOOK                       TABLE
+STU1                           TABLE
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil
+       107 Balu               55                    67
+
+7 rows selected.
+
+SQL> select * from facebook;
+
+FIRSTNAME            SURNAME                     DAY MONTH              YEAR
+-------------------- -------------------- ---------- ------------ ----------
+GENDER     MOBILENUMBER PASSWORD
+---------- ------------ ---------------
+Rama                 Rao                          10 May                1999
+Male         1234567890 Ram#123
+
+Krishna              Mohan                        15 June               2000
+Male           11111111 Krishna321
+
+gffgdf               sdggf                        22 efrerer            1998
+frrrf             12345 ferfe
+
+
+SQL> set linesize 200;
+SQL> select * from facebook;
+
+FIRSTNAME            SURNAME                     DAY MONTH              YEAR GENDER     MOBILENUMBER PASSWORD
+-------------------- -------------------- ---------- ------------ ---------- ---------- ------------ ---------------
+Rama                 Rao                          10 May                1999 Male         1234567890 Ram#123
+Krishna              Mohan                        15 June               2000 Male           11111111 Krishna321
+gffgdf               sdggf                        22 efrerer            1998 frrrf             12345 ferfe
+
+SQL> insert into facebook values(&&firstname,&&SURNAME,&&DAY,&&MONTH,&&YEAR,&&GENDER,&&MOBILENUMBER,&&PASSWORD);
+Enter value for firstname: 'Shyam'
+Enter value for surname: 'Sing'
+Enter value for day: 14
+Enter value for month: 'December'
+Enter value for year: 2005
+Enter value for gender: 'Male'
+Enter value for mobilenumber: 123456789
+Enter value for password: '123#123'
+old   1: insert into facebook values(&&firstname,&&SURNAME,&&DAY,&&MONTH,&&YEAR,&&GENDER,&&MOBILENUMBER,&&PASSWORD)
+new   1: insert into facebook values('Shyam','Sing',14,'December',2005,'Male',123456789,'123#123')
+
+1 row created.
+
+SQL> //
+old   1: insert into facebook values(&&firstname,&&SURNAME,&&DAY,&&MONTH,&&YEAR,&&GENDER,&&MOBILENUMBER,&&PASSWORD)
+new   1: insert into facebook values('Shyam','Sing',14,'December',2005,'Male',123456789,'123#123')
+
+1 row created.
+
+SQL> //
+old   1: insert into facebook values(&&firstname,&&SURNAME,&&DAY,&&MONTH,&&YEAR,&&GENDER,&&MOBILENUMBER,&&PASSWORD)
+new   1: insert into facebook values('Shyam','Sing',14,'December',2005,'Male',123456789,'123#123')
+
+1 row created.
+
+SQL> //
+old   1: insert into facebook values(&&firstname,&&SURNAME,&&DAY,&&MONTH,&&YEAR,&&GENDER,&&MOBILENUMBER,&&PASSWORD)
+new   1: insert into facebook values('Shyam','Sing',14,'December',2005,'Male',123456789,'123#123')
+
+1 row created.
+
+SQL> select * from facebook;
+
+FIRSTNAME            SURNAME                     DAY MONTH              YEAR GENDER     MOBILENUMBER PASSWORD
+-------------------- -------------------- ---------- ------------ ---------- ---------- ------------ ---------------
+Rama                 Rao                          10 May                1999 Male         1234567890 Ram#123
+Krishna              Mohan                        15 June               2000 Male           11111111 Krishna321
+gffgdf               sdggf                        22 efrerer            1998 frrrf             12345 ferfe
+Shyam                Sing                         14 December           2005 Male          123456789 123#123
+Shyam                Sing                         14 December           2005 Male          123456789 123#123
+Shyam                Sing                         14 December           2005 Male          123456789 123#123
+Shyam                Sing                         14 December           2005 Male          123456789 123#123
+
+7 rows selected.
+
+SQL> select FIRSTNAME,GENDER,MOBILENUMBER from facebook;
+
+FIRSTNAME            GENDER     MOBILENUMBER
+-------------------- ---------- ------------
+Rama                 Male         1234567890
+Krishna              Male           11111111
+gffgdf               frrrf             12345
+Shyam                Male          123456789
+Shyam                Male          123456789
+Shyam                Male          123456789
+Shyam                Male          123456789
+
+7 rows selected.
+
+SQL> select FIRSTNAME,GENDER,MOBILENUMBER from facebook where gender='Male';
+
+FIRSTNAME            GENDER     MOBILENUMBER
+-------------------- ---------- ------------
+Rama                 Male         1234567890
+Krishna              Male           11111111
+Shyam                Male          123456789
+Shyam                Male          123456789
+Shyam                Male          123456789
+Shyam                Male          123456789
+
+6 rows selected.
+
+SQL> select FIRSTNAME,GENDER,MOBILENUMBER from facebook where gender='FeMale';
+
+no rows selected
+
+SQL> select FIRSTNAME,GENDER,MOBILENUMBER from facebook where MOBILENUMBER='123456789';
+
+FIRSTNAME            GENDER     MOBILENUMBER
+-------------------- ---------- ------------
+Shyam                Male          123456789
+Shyam                Male          123456789
+Shyam                Male          123456789
+Shyam                Male          123456789
+
+SQL> select FIRSTNAME,GENDER,MOBILENUMBER from facebook where MOBILENUMBER='123456789' and gender='Male';
+
+FIRSTNAME            GENDER     MOBILENUMBER
+-------------------- ---------- ------------
+Shyam                Male          123456789
+Shyam                Male          123456789
+Shyam                Male          123456789
+Shyam                Male          123456789
+
+SQL> commit;
+
+Commit complete.
+
+SQL> update facebook gender='Female';
+update facebook gender='Female'
+                      *
+ERROR at line 1:
+ORA-00971: missing SET keyword
+
+
+SQL> update facebook set gender='Female';
+
+7 rows updated.
+
+SQL> select FIRSTNAME,GENDER,MOBILENUMBER from facebook;
+
+FIRSTNAME            GENDER     MOBILENUMBER
+-------------------- ---------- ------------
+Rama                 Female       1234567890
+Krishna              Female         11111111
+gffgdf               Female            12345
+Shyam                Female        123456789
+Shyam                Female        123456789
+Shyam                Female        123456789
+Shyam                Female        123456789
+
+7 rows selected.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select FIRSTNAME,GENDER,MOBILENUMBER from facebook;
+
+FIRSTNAME            GENDER     MOBILENUMBER
+-------------------- ---------- ------------
+Rama                 Male         1234567890
+Krishna              Male           11111111
+gffgdf               frrrf             12345
+Shyam                Male          123456789
+Shyam                Male          123456789
+Shyam                Male          123456789
+Shyam                Male          123456789
+
+7 rows selected.
+
+SQL> update facebook set gender='Female' where gender='frrrf';
+
+1 row updated.
+
+SQL> select FIRSTNAME,GENDER,MOBILENUMBER from facebook;
+
+FIRSTNAME            GENDER     MOBILENUMBER
+-------------------- ---------- ------------
+Rama                 Male         1234567890
+Krishna              Male           11111111
+gffgdf               Female            12345
+Shyam                Male          123456789
+Shyam                Male          123456789
+Shyam                Male          123456789
+Shyam                Male          123456789
+
+7 rows selected.
+
+SQL> update facebook set firstname='Lalitha' where gender='frrrf';
+
+0 rows updated.
+
+SQL> update facebook set firstname='Lalitha' where MOBILENUMBER=12345;
+
+1 row updated.
+
+SQL> select FIRSTNAME,GENDER,MOBILENUMBER from facebook;
+
+FIRSTNAME            GENDER     MOBILENUMBER
+-------------------- ---------- ------------
+Rama                 Male         1234567890
+Krishna              Male           11111111
+Lalitha              Female            12345
+Shyam                Male          123456789
+Shyam                Male          123456789
+Shyam                Male          123456789
+Shyam                Male          123456789
+
+7 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> update facebook set firstname='Lalitha';
+
+7 rows updated.
+
+SQL> select FIRSTNAME,GENDER,MOBILENUMBER from facebook;
+
+FIRSTNAME            GENDER     MOBILENUMBER
+-------------------- ---------- ------------
+Lalitha              Male         1234567890
+Lalitha              Male           11111111
+Lalitha              Female            12345
+Lalitha              Male          123456789
+Lalitha              Male          123456789
+Lalitha              Male          123456789
+Lalitha              Male          123456789
+
+7 rows selected.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select FIRSTNAME,GENDER,MOBILENUMBER from facebook;
+
+FIRSTNAME            GENDER     MOBILENUMBER
+-------------------- ---------- ------------
+Rama                 Male         1234567890
+Krishna              Male           11111111
+Lalitha              Female            12345
+Shyam                Male          123456789
+Shyam                Male          123456789
+Shyam                Male          123456789
+Shyam                Male          123456789
+
+7 rows selected.
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil
+       107 Balu               55                    67
+
+7 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> update stu1 set sub1=65,sub2=88,sub3=40;
+
+7 rows updated.
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            65         88         40
+       102 Mahesh             65         88         40
+       103 Kiran              65         88         40
+       104 Shyam              65         88         40
+       105 Sunitha            65         88         40
+       106 Anil               65         88         40
+       107 Balu               65         88         40
+
+7 rows selected.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil
+       107 Balu               55                    67
+
+7 rows selected.
+
+SQL> update stu1 set sub1=65,sub2=88,sub3=40 where htno=106;
+
+1 row updated.
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55                    67
+
+7 rows selected.
+
+SQL> update stu1 set sub2=88 where htno=107;
+
+1 row updated.
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67
+
+7 rows selected.
+
+SQL> desc stu1;
+ Name                                                                                               Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ HTNO                                                                                                NUMBER(3)
+ SNAME                                                                                               VARCHAR2(10)
+ SUB1                                                                                                NUMBER(2)
+ SUB2                                                                                                NUMBER(2)
+ SUB3                                                                                                NUMBER(2)
+
+SQL> alter table stu1 add(totalmarks number(4));
+
+Table altered.
+
+SQL> desc stu1;
+ Name                                                                                                     Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ HTNO                                                                                                      NUMBER(3)
+ SNAME                                                                                                     VARCHAR2(10)
+ SUB1                                                                                                      NUMBER(2)
+ SUB2                                                                                                      NUMBER(2)
+ SUB3                                                                                                      NUMBER(2)
+ TOTALMARKS                                                                                                NUMBER(4)
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3 TOTALMARKS
+---------- ---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67
+
+7 rows selected.
+
+SQL> update stu1 set totalmarks=sub1+sub2+sub3 where htno=107;
+
+1 row updated.
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3 TOTALMARKS
+---------- ---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67        210
+
+7 rows selected.
+
+SQL> update stu1 set totalmarks=sub1+sub2+sub3;
+
+7 rows updated.
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3 TOTALMARKS
+---------- ---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97        294
+       102 Mahesh             99         97         95        291
+       103 Kiran              55         45         65        165
+       104 Shyam              89         91         78        258
+       105 Sunitha            56         68         99        223
+       106 Anil               65         88         40        193
+       107 Balu               55         88         67        210
+
+7 rows selected.
+
+SQL> alter table stu1 add(avg number(6,2),percentage number(5,2));
+
+Table altered.
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3 TOTALMARKS        AVG PERCENTAGE
+---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97        294
+       102 Mahesh             99         97         95        291
+       103 Kiran              55         45         65        165
+       104 Shyam              89         91         78        258
+       105 Sunitha            56         68         99        223
+       106 Anil               65         88         40        193
+       107 Balu               55         88         67        210
+
+7 rows selected.
+
+SQL> update stu1 set avg=(sub1+sub2+sub3)/3;
+
+7 rows updated.
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3 TOTALMARKS        AVG PERCENTAGE
+---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97        294         98
+       102 Mahesh             99         97         95        291         97
+       103 Kiran              55         45         65        165         55
+       104 Shyam              89         91         78        258         86
+       105 Sunitha            56         68         99        223      74.33
+       106 Anil               65         88         40        193      64.33
+       107 Balu               55         88         67        210         70
+
+7 rows selected.
+
+SQL> alter table stu1 rename column TOTALMARKS to obtainedmarks;
+
+Table altered.
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3 OBTAINEDMARKS        AVG PERCENTAGE
+---------- ---------- ---------- ---------- ---------- ------------- ---------- ----------
+       101 Krishna            99         98         97           294         98
+       102 Mahesh             99         97         95           291         97
+       103 Kiran              55         45         65           165         55
+       104 Shyam              89         91         78           258         86
+       105 Sunitha            56         68         99           223      74.33
+       106 Anil               65         88         40           193      64.33
+       107 Balu               55         88         67           210         70
+
+7 rows selected.
+
+SQL> update stu1 set PERCENTAGE=(OBTAINEDMARKS/300)*100;
+
+7 rows updated.
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3 OBTAINEDMARKS        AVG PERCENTAGE
+---------- ---------- ---------- ---------- ---------- ------------- ---------- ----------
+       101 Krishna            99         98         97           294         98         98
+       102 Mahesh             99         97         95           291         97         97
+       103 Kiran              55         45         65           165         55         55
+       104 Shyam              89         91         78           258         86         86
+       105 Sunitha            56         68         99           223      74.33      74.33
+       106 Anil               65         88         40           193      64.33      64.33
+       107 Balu               55         88         67           210         70         70
+
+7 rows selected.
+
+SQL>
+
+
