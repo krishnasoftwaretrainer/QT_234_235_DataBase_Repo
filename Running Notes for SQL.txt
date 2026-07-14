@@ -232,3 +232,44 @@ SavePoint
 Student:5Cloumns
 Employee:5Cloumns
 Customer:5Cloumns
+
+===================
+DDL:Drop and Truncate
+DML:Delete
+
+DataTypes in OracleDB or SQL:
+-------------------------
+create table tablename(Column1 datatype(Size) Constraint,Column2 datatype(Size) Constraint).....);
+
+1.Number:
+--------
+A.Plain Numbers:586 23434
+sid number(5);
+
+B.Point Values:3.4Y  99.99
+percentage number(5,2);  999.1234
+Here: 5 is Precession
+	  2 is Scale
+Precession-Scale:5-2=3 9.123
+
+2.Characters:Strings:
+----------------
+'Value':A to Z a to z 0 to 9 SS[!@$#^%&*(]
+
+A.char
+sname char(20):Min:1 & Max:20Characters
+'Krishna'
+
+B.VarChar:2000bytes
+sname varchar(20):Min:1 & Max:20Characters
+'Krishna'
+
+C.VarChar2:4000bytes
+sname char(20)
+'Krishna'
+
+3.Date: 
+dob date;
+Default:2digits/First 3Characters of Month/Last 2digits of Year
+Ex: 14/JUL/26
+TimeStamp:DD/MMM/YY HH/MM/SS/MS am/pm

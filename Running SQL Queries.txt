@@ -1204,5 +1204,345 @@ SQL> select * from stu1;
 7 rows selected.
 
 SQL>
+=================================
 
+SQL*Plus: Release 11.2.0.2.0 Production on Tue Jul 14 09:36:53 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qt235
+Enter password:
+Connected.
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+FACEBOOK                       TABLE
+STU1                           TABLE
+
+SQL> desc stu1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HTNO                                               NUMBER(3)
+ SNAME                                              VARCHAR2(10)
+ SUB1                                               NUMBER(2)
+ SUB2                                               NUMBER(2)
+ SUB3                                               NUMBER(2)
+ OBTAINEDMARKS                                      NUMBER(4)
+ AVG                                                NUMBER(6,2)
+ PERCENTAGE                                         NUMBER(5,2)
+
+SQL> create table emp(eid number(4),ename char(20),doj date,sal number(6,2));
+
+Table created.
+
+SQL> descemp;
+SP2-0042: unknown command "descemp" - rest of line ignored.
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                                NUMBER(4)
+ ENAME                                              CHAR(20)
+ DOJ                                                DATE
+ SAL                                                NUMBER(6,2)
+
+SQL> insert into emp values(1001,'Krishna','01/jan/25',5671.99);
+
+1 row created.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ              SAL
+---------- -------------------- --------- ----------
+      1001 Krishna              01-JAN-25    5671.99
+
+SQL> insert into emp(eid) values('1002');
+
+1 row created.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ              SAL
+---------- -------------------- --------- ----------
+      1001 Krishna              01-JAN-25    5671.99
+      1002
+
+SQL> insert into emp(ename) values(wjkfg);
+insert into emp(ename) values(wjkfg)
+                              *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> insert into emp(ename) values(1111);
+
+1 row created.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ              SAL
+---------- -------------------- --------- ----------
+      1001 Krishna              01-JAN-25    5671.99
+      1002
+           1111
+
+SQL> insert into emp(ename) values(%#$^%$^);
+insert into emp(ename) values(%#$^%$^)
+                              *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> insert into emp(ename) values(Ramesh);
+insert into emp(ename) values(Ramesh)
+                              *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> insert into emp(ename) values('1234567890123456789011');
+insert into emp(ename) values('1234567890123456789011')
+                              *
+ERROR at line 1:
+ORA-12899: value too large for column "QT235"."EMP"."ENAME" (actual: 22,
+maximum: 20)
+
+
+SQL> insert into emp(doj) values(12-july-2026);
+insert into emp(doj) values(12-july-2026)
+                               *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> insert into emp(doj) values('12-july-2026');
+
+1 row created.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ              SAL
+---------- -------------------- --------- ----------
+      1001 Krishna              01-JAN-25    5671.99
+      1002
+           1111
+                                12-JUL-26
+
+SQL> insert into emp(doj) values('12-decekobr-2026');
+insert into emp(doj) values('12-decekobr-2026')
+                            *
+ERROR at line 1:
+ORA-01841: (full) year must be between -4713 and +9999, and not be 0
+
+
+SQL> insert into emp(doj) values('12-december-2026');
+
+1 row created.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ              SAL
+---------- -------------------- --------- ----------
+      1001 Krishna              01-JAN-25    5671.99
+      1002
+           1111
+                                12-JUL-26
+                                12-DEC-26
+
+SQL> insert into emp(sal) values(12345.2);
+insert into emp(sal) values(12345.2)
+                            *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column
+
+
+SQL> insert into emp(sal) values(123.234);
+
+1 row created.
+
+SQL> insert into emp(sal) values(123.23456);
+
+1 row created.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ              SAL
+---------- -------------------- --------- ----------
+      1001 Krishna              01-JAN-25    5671.99
+      1002
+           1111
+                                12-JUL-26
+                                12-DEC-26
+                                              123.23
+                                              123.23
+
+7 rows selected.
+
+SQL> insert into emp(sal) values(1234.1234567890);
+
+1 row created.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ              SAL
+---------- -------------------- --------- ----------
+      1001 Krishna              01-JAN-25    5671.99
+      1002
+           1111
+                                12-JUL-26
+                                12-DEC-26
+                                              123.23
+                                              123.23
+                                             1234.12
+
+8 rows selected.
+
+SQL> insert into emp(sal) values(123456.1234567890);
+insert into emp(sal) values(123456.1234567890)
+                            *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column
+
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ              SAL
+---------- -------------------- --------- ----------
+      1001 Krishna              01-JAN-25    5671.99
+      1002
+           1111
+                                12-JUL-26
+                                12-DEC-26
+                                              123.23
+                                              123.23
+                                             1234.12
+
+8 rows selected.
+
+SQL> update emp set values ename='Ramesh',doj='01/mar/95',sal=568.986 where eid=1002;
+update emp set values ename='Ramesh',doj='01/mar/95',sal=568.986 where eid=1002
+               *
+ERROR at line 1:
+ORA-01747: invalid user.table.column, table.column, or column specification
+
+
+SQL> update emp set ename='Ramesh',doj='01/mar/95',sal=568.986 where eid=1002;
+
+1 row updated.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ              SAL
+---------- -------------------- --------- ----------
+      1001 Krishna              01-JAN-25    5671.99
+      1002 Ramesh               01-MAR-95     568.99
+           1111
+                                12-JUL-26
+                                12-DEC-26
+                                              123.23
+                                              123.23
+                                             1234.12
+
+8 rows selected.
+
+SQL> update emp set eid='1003',ename='Mahesh','doj='12/mar/99',sal=9864.986 where ename=1111;
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> update emp set eid='1003',ename='Mahesh','doj='12/mar/99',sal=9864.986 where ename='1111';
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> update emp set eid=1003,ename='Mahesh',doj='12/mar/99',sal=9864.986 where ename='1111';
+
+1 row updated.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ              SAL
+---------- -------------------- --------- ----------
+      1001 Krishna              01-JAN-25    5671.99
+      1002 Ramesh               01-MAR-95     568.99
+      1003 Mahesh               12-MAR-99    9864.99
+                                12-JUL-26
+                                12-DEC-26
+                                              123.23
+                                              123.23
+                                             1234.12
+
+8 rows selected.
+
+SQL> delete emp where sal=123.23;
+
+2 rows deleted.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ              SAL
+---------- -------------------- --------- ----------
+      1001 Krishna              01-JAN-25    5671.99
+      1002 Ramesh               01-MAR-95     568.99
+      1003 Mahesh               12-MAR-99    9864.99
+                                12-JUL-26
+                                12-DEC-26
+                                             1234.12
+
+6 rows selected.
+
+SQL> delete emp where sal=1234.12;
+
+1 row deleted.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ              SAL
+---------- -------------------- --------- ----------
+      1001 Krishna              01-JAN-25    5671.99
+      1002 Ramesh               01-MAR-95     568.99
+      1003 Mahesh               12-MAR-99    9864.99
+                                12-JUL-26
+                                12-DEC-26
+
+SQL> delete emp where doj='12-dec-26',doj='12=jul=26';
+delete emp where doj='12-dec-26',doj='12=jul=26'
+                                *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> delete emp where doj='12-dec-26' or doj='12=jul=26';
+
+2 rows deleted.
+
+SQL> select * from emp;
+
+       EID ENAME                DOJ              SAL
+---------- -------------------- --------- ----------
+      1001 Krishna              01-JAN-25    5671.99
+      1002 Ramesh               01-MAR-95     568.99
+      1003 Mahesh               12-MAR-99    9864.99
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from emp;
+
+no rows selected
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from emp;
+
+no rows selected
+
+SQL> update emp set ename='Ramesh',doj='01/mar/95',sal=568.986 where eid=1002;
+
+0 rows updated.
+
+SQL>                                                                          
 
