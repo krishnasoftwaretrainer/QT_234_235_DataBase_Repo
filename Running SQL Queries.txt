@@ -1545,4 +1545,579 @@ SQL> update emp set ename='Ramesh',doj='01/mar/95',sal=568.986 where eid=1002;
 0 rows updated.
 
 SQL>                                                                          
+==============================
 
+SQL*Plus: Release 11.2.0.2.0 Production on Wed Jul 15 09:51:23 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qt235
+Enter password:
+Connected.
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP                            TABLE
+FACEBOOK                       TABLE
+STU1                           TABLE
+
+SQL> select * from emp;
+
+no rows selected
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3 OBTAINEDMARKS        AVG
+---------- ---------- ---------- ---------- ---------- ------------- ----------
+PERCENTAGE
+----------
+       101 Krishna            99         98         97           294         98
+        98
+
+       102 Mahesh             99         97         95           291         97
+        97
+
+       103 Kiran              55         45         65           165         55
+        55
+
+
+      HTNO SNAME            SUB1       SUB2       SUB3 OBTAINEDMARKS        AVG
+---------- ---------- ---------- ---------- ---------- ------------- ----------
+PERCENTAGE
+----------
+       104 Shyam              89         91         78           258         86
+        86
+
+       105 Sunitha            56         68         99           223      74.33
+     74.33
+
+       106 Anil               65         88         40           193      64.33
+     64.33
+
+
+      HTNO SNAME            SUB1       SUB2       SUB3 OBTAINEDMARKS        AVG
+---------- ---------- ---------- ---------- ---------- ------------- ----------
+PERCENTAGE
+----------
+       107 Balu               55         88         67           210         70
+        70
+
+
+7 rows selected.
+
+SQL> create table stu2 select htno,sname,sub1,sub2,sub3 from stu1;
+create table stu2 select htno,sname,sub1,sub2,sub3 from stu1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+SQL> create table stu2 as select htno,sname,sub1,sub2,sub3 from stu1;
+
+Table created.
+
+SQL> desc stu2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HTNO                                               NUMBER(3)
+ SNAME                                              VARCHAR2(10)
+ SUB1                                               NUMBER(2)
+ SUB2                                               NUMBER(2)
+ SUB3                                               NUMBER(2)
+
+SQL> desc stu1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HTNO                                               NUMBER(3)
+ SNAME                                              VARCHAR2(10)
+ SUB1                                               NUMBER(2)
+ SUB2                                               NUMBER(2)
+ SUB3                                               NUMBER(2)
+ OBTAINEDMARKS                                      NUMBER(4)
+ AVG                                                NUMBER(6,2)
+ PERCENTAGE                                         NUMBER(5,2)
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67
+
+7 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> update table stu2 set sub1=100 where htno=101;
+update table stu2 set sub1=100 where htno=101
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> update stu2 set sub1=100 where htno=101;
+update stu2 set sub1=100 where htno=101
+                     *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column
+
+
+SQL> update stu2 set sub1=0 where htno=101;
+
+1 row updated.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67
+
+7 rows selected.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67
+
+7 rows selected.
+
+SQL> insert into stu2 values(111,'ghgfhdg',55,66,11);
+
+1 row created.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67
+       111 ghgfhdg            55         66         11
+
+8 rows selected.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67
+
+7 rows selected.
+
+SQL> update stu2 set sub1=0 where htno=101;
+
+1 row updated.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67
+
+7 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67
+
+7 rows selected.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67
+
+7 rows selected.
+
+SQL> create table stu3 as select htno,sname,sub1,sub2,sub3 from stu1;
+
+Table created.
+
+SQL> create table stu4 as select htno,sname,sub1,sub2,sub3 from stu1;
+
+Table created.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67
+
+7 rows selected.
+
+SQL> select * from stu3;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67
+
+7 rows selected.
+
+SQL> select * from stu4;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67
+
+7 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> delete table stu2;
+delete table stu2
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> delete stu2;
+
+7 rows deleted.
+
+SQL> select * from stu2;
+
+no rows selected
+
+SQL> desc stu2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HTNO                                               NUMBER(3)
+ SNAME                                              VARCHAR2(10)
+ SUB1                                               NUMBER(2)
+ SUB2                                               NUMBER(2)
+ SUB3                                               NUMBER(2)
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67
+
+7 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> delete stu2 where htno=107;
+
+1 row deleted.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+
+6 rows selected.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67
+
+7 rows selected.
+
+SQL> delete stu2 where htno=107;
+
+1 row deleted.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+
+6 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+
+6 rows selected.
+
+SQL> delete stu2 where htno=106;
+
+1 row deleted.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+
+SQL> commit;
+
+Commit complete.
+
+SQL> delete stu2 where htno=105;
+
+1 row deleted.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+
+SQL> select * from stu3;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67
+
+7 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> truncate table stu3;
+
+Table truncated.
+
+SQL> select * from stu3;
+
+no rows selected
+
+SQL> desc stu3;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HTNO                                               NUMBER(3)
+ SNAME                                              VARCHAR2(10)
+ SUB1                                               NUMBER(2)
+ SUB2                                               NUMBER(2)
+ SUB3                                               NUMBER(2)
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from stu3;
+
+no rows selected
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from stu4;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            99         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Anil               65         88         40
+       107 Balu               55         88         67
+
+7 rows selected.
+
+SQL> desc stu4;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HTNO                                               NUMBER(3)
+ SNAME                                              VARCHAR2(10)
+ SUB1                                               NUMBER(2)
+ SUB2                                               NUMBER(2)
+ SUB3                                               NUMBER(2)
+
+SQL> drop table stu4;
+
+Table dropped.
+
+SQL> select * from stu4;
+select * from stu4
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> desc stu4;
+ERROR:
+ORA-04043: object stu4 does not exist
+
+
+SQL>
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP                            TABLE
+FACEBOOK                       TABLE
+STU1                           TABLE
+STU2                           TABLE
+STU3                           TABLE
+
+SQL> drop table stu3;
+
+Table dropped.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP                            TABLE
+FACEBOOK                       TABLE
+STU1                           TABLE
+STU2                           TABLE
+
+SQL> select * from emp;
+
+no rows selected
+
+SQL>

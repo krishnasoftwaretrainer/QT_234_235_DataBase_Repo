@@ -273,3 +273,41 @@ dob date;
 Default:2digits/First 3Characters of Month/Last 2digits of Year
 Ex: 14/JUL/26
 TimeStamp:DD/MMM/YY HH/MM/SS/MS am/pm
+===================
+DDL:Drop and Truncate
+DML:Delete
+
+Delete:DML:Using to delete specfic record[where] or all records.
+Have chance to RollBack[Undo/Ctrl Z] upto commit[Perment Saving]
+We have same table structure.
+
+Stu1 table:
+Syntax:delete tablename where condition;
+
+Truncate:[DDL]
+Using to delete the all records perminetly [no where].
+->No specfic record delete option
+->No option to RollBack
+->Structure Same
+
+Stu1 table:
+Syntax:truncate table tablename;
+
+Drop:[DDL]
+Using to delete all records with table structure also perminetly.
+->No specfic record delete option
+->No option to RollBack
+->Permentaly delete the table structure.
+
+Syntax:drop table tablename;
+
+TCL:
+RollBack:Ctrl+z
+Commit:Permentaly saved
+SavePoint:
+
+DDL:Create Alter Rename Truncate Drop 
+DDL commands by default it have the commit;
+
+DML:Insert Update Select Delete
+DML Commands does not have default commit, need to perform manual commit, otherwise chance to loss the data.
