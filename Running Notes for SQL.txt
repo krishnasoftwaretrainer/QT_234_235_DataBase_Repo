@@ -305,9 +305,21 @@ TCL:
 RollBack:Ctrl+z
 Commit:Permentaly saved
 SavePoint:
+Syntax:savepoint savepointname;
+
 
 DDL:Create Alter Rename Truncate Drop 
 DDL commands by default it have the commit;
 
 DML:Insert Update Select Delete
 DML Commands does not have default commit, need to perform manual commit, otherwise chance to loss the data.
+
+SQL> rollback to s3;
+
+Locks:
+
+SQL Constraints:
+---------------
+Unique:No Duplicate Values 
+Not Null:No Null[Empty] Values 
+Primary Key:No Duplicate and Null Values.

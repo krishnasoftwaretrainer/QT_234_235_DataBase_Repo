@@ -2121,3 +2121,374 @@ SQL> select * from emp;
 no rows selected
 
 SQL>
+===============
+
+SQL*Plus: Release 11.2.0.2.0 Production on Thu Jul 16 09:36:03 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qt235
+Enter password:
+Connected.
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP                            TABLE
+FACEBOOK                       TABLE
+STU1                           TABLE
+STU2                           TABLE
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert into stu2(htno,sub1,sub3) values(106,11,22);
+
+1 row created.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106                    11                    22
+
+6 rows selected.
+
+SQL> update stu2 set sname='sfgghhhhy' where htno=106;
+
+1 row updated.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 sfgghhhhy          11                    22
+
+6 rows selected.
+
+SQL> delete stu2 where htno=105;
+
+1 row deleted.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       106 sfgghhhhy          11                    22
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert into stu2(htno,sub1,sub3) values(106,11,22);
+
+1 row created.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106                    11                    22
+
+6 rows selected.
+
+SQL> savepoint sp1;
+
+Savepoint created.
+
+SQL> update stu2 set sname='sfgghhhhy' where htno=106;
+
+1 row updated.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 sfgghhhhy          11                    22
+
+6 rows selected.
+
+SQL> savepoint sp2;
+
+Savepoint created.
+
+SQL> delete stu2 where htno=105;
+
+1 row deleted.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       106 sfgghhhhy          11                    22
+
+SQL> savepoint sp3;
+
+Savepoint created.
+
+SQL> rollback to sp3;
+
+Rollback complete.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       106 sfgghhhhy          11                    22
+
+SQL> rollback to sp3;
+
+Rollback complete.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       106 sfgghhhhy          11                    22
+
+SQL> rollback to sp2;
+
+Rollback complete.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 sfgghhhhy          11                    22
+
+6 rows selected.
+
+SQL> rollback to sp1;
+
+Rollback complete.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106                    11                    22
+
+6 rows selected.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+
+SQL> commit;
+
+Commit complete.
+
+SQL> update stu2 set sub1=10;
+
+5 rows updated.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            10         98         97
+       102 Mahesh             10         97         95
+       103 Kiran              10         45         65
+       104 Shyam              10         91         78
+       105 Sunitha            10         68         99
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna             0         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+
+SQL> update stu2 set sub1=10 where htno=101;
+
+1 row updated.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            10         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            10         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            10         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Viswava            87         65         47
+
+6 rows selected.
+
+SQL> insert into stu2(sub1,sub3) values(11,22);
+
+1 row created.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            10         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Viswava            87         65         47
+                              11                    22
+
+7 rows selected.
+
+SQL> desc stu2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HTNO                                               NUMBER(3)
+ SNAME                                              VARCHAR2(10)
+ SUB1                                               NUMBER(2)
+ SUB2                                               NUMBER(2)
+ SUB3                                               NUMBER(2)
+
+SQL> create table stu3(rno number(3) primary key,sname varchar2(10) not null,address varchar2(20),libid number(5) unique);
+
+Table created.
+
+SQL> desc stu3;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ RNO                                       NOT NULL NUMBER(3)
+ SNAME                                     NOT NULL VARCHAR2(10)
+ ADDRESS                                            VARCHAR2(20)
+ LIBID                                              NUMBER(5)
+
+SQL> insert into stu3(address) values('ggggb');
+insert into stu3(address) values('ggggb')
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("QT235"."STU3"."RNO")
+
+
+SQL> insert into stu3(rno,address) values(111,'ggggb');
+insert into stu3(rno,address) values(111,'ggggb')
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("QT235"."STU3"."SNAME")
+
+
+SQL> insert into stu3(rno,sname) values(111,'krishna');
+
+1 row created.
+
+SQL> select * from stu3;
+
+       RNO SNAME      ADDRESS                   LIBID
+---------- ---------- -------------------- ----------
+       111 krishna
+
+SQL>
