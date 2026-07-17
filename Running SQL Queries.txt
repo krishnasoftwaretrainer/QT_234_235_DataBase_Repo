@@ -2492,3 +2492,491 @@ SQL> select * from stu3;
        111 krishna
 
 SQL>
+================================
+
+SQL*Plus: Release 11.2.0.2.0 Production on Fri Jul 17 09:36:36 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qt235
+Enter password:
+Connected.
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP                            TABLE
+FACEBOOK                       TABLE
+STU1                           TABLE
+STU2                           TABLE
+STU3                           TABLE
+
+SQL> desc stu3;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ RNO                                       NOT NULL NUMBER(3)
+ SNAME                                     NOT NULL VARCHAR2(10)
+ ADDRESS                                            VARCHAR2(20)
+ LIBID                                              NUMBER(5)
+
+SQL> select * from stu3;
+
+       RNO SNAME      ADDRESS                   LIBID
+---------- ---------- -------------------- ----------
+       111 krishna
+
+SQL> insert into stu3 values(111,'Krishna','Hyd',101);
+insert into stu3 values(111,'Krishna','Hyd',101)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (QT235.SYS_C007002) violated
+
+
+SQL> SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM USER_CONSTRAINTS WHERE TABLE_NAME = 'stu3';
+
+no rows selected
+
+SQL> insert into stu3 values(111,'Ramesh','Hyd',101);
+insert into stu3 values(111,'Ramesh','Hyd',101)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (QT235.SYS_C007002) violated
+
+
+SQL> insert into stu3 values(112,'Ramesh','Hyd',101);
+
+1 row created.
+
+SQL> select * from stu3;
+
+       RNO SNAME      ADDRESS                   LIBID
+---------- ---------- -------------------- ----------
+       111 krishna
+       112 Ramesh     Hyd                         101
+
+SQL> insert into stu3 values(113,'Krishna','Sec',102);
+
+1 row created.
+
+SQL> select * from stu3;
+
+       RNO SNAME      ADDRESS                   LIBID
+---------- ---------- -------------------- ----------
+       111 krishna
+       112 Ramesh     Hyd                         101
+       113 Krishna    Sec                         102
+
+SQL> create table stu4(sid number(3),sname char(10),passmarks number(2) default 35);
+
+Table created.
+
+SQL> desc stu4;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                                NUMBER(3)
+ SNAME                                              CHAR(10)
+ PASSMARKS                                          NUMBER(2)
+
+SQL> insert into stu4(sid,sname) values(111,'Krishna');
+
+1 row created.
+
+SQL> select * from stu4;
+
+       SID SNAME       PASSMARKS
+---------- ---------- ----------
+       111 Krishna            35
+
+SQL> insert into stu4(sid,sname) values(112,'Shyam');
+
+1 row created.
+
+SQL> insert into stu4(sid,sname) values(113,'Kiran');
+
+1 row created.
+
+SQL> select * from stu4;
+
+       SID SNAME       PASSMARKS
+---------- ---------- ----------
+       111 Krishna            35
+       112 Shyam              35
+       113 Kiran              35
+
+SQL> create table stu5(sid number(3),sname char(10),passmarks number(3) check(passmarks<=100));
+
+Table created.
+
+SQL> insert into stu5 values(11,'Krishna',99);
+
+1 row created.
+
+SQL> select * from stu5;
+
+       SID SNAME       PASSMARKS
+---------- ---------- ----------
+        11 Krishna            99
+
+SQL> insert into stu5 values(11,'Krishna',105);
+insert into stu5 values(11,'Krishna',105)
+*
+ERROR at line 1:
+ORA-02290: check constraint (QT235.SYS_C007004) violated
+
+
+SQL> SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM USER_CONSTRAINTS WHERE TABLE_NAME = 'stu3';
+
+no rows selected
+
+SQL> SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM USER_CONSTRAINTS WHERE TABLE_NAME = 'stu5';
+
+no rows selected
+
+SQL> SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE FROM USER_CONSTRAINTS WHERE TABLE_NAME ='stu5';
+
+no rows selected
+
+SQL> insert into stu5 values(11,'Krishna',85);
+
+1 row created.
+
+SQL> select * from stu5;
+
+       SID SNAME       PASSMARKS
+---------- ---------- ----------
+        11 Krishna            99
+        11 Krishna            85
+
+SQL> ALTER TABLE stu5 DROP CONSTRAINT "SYS_C007004";
+
+Table altered.
+
+SQL> insert into stu5 values(11,'Krishna',105);
+
+1 row created.
+
+SQL> select * from stu5;
+
+       SID SNAME       PASSMARKS
+---------- ---------- ----------
+        11 Krishna            99
+        11 Krishna            85
+        11 Krishna           105
+
+SQL> select 5+3 from stu5;
+
+       5+3
+----------
+         8
+         8
+         8
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3 OBTAINEDMARKS        AVG
+---------- ---------- ---------- ---------- ---------- ------------- ----------
+PERCENTAGE
+----------
+       101 Krishna            99         98         97           294         98
+        98
+
+       102 Mahesh             99         97         95           291         97
+        97
+
+       103 Kiran              55         45         65           165         55
+        55
+
+
+      HTNO SNAME            SUB1       SUB2       SUB3 OBTAINEDMARKS        AVG
+---------- ---------- ---------- ---------- ---------- ------------- ----------
+PERCENTAGE
+----------
+       104 Shyam              89         91         78           258         86
+        86
+
+       105 Sunitha            56         68         99           223      74.33
+     74.33
+
+       106 Anil               65         88         40           193      64.33
+     64.33
+
+
+      HTNO SNAME            SUB1       SUB2       SUB3 OBTAINEDMARKS        AVG
+---------- ---------- ---------- ---------- ---------- ------------- ----------
+PERCENTAGE
+----------
+       107 Balu               55         88         67           210         70
+        70
+
+
+7 rows selected.
+
+SQL> select 5+3 from stu1;
+
+       5+3
+----------
+         8
+         8
+         8
+         8
+         8
+         8
+         8
+
+7 rows selected.
+
+SQL> select * from dual;
+
+D
+-
+X
+
+SQL> select 5+3 from dual;
+
+       5+3
+----------
+         8
+
+SQL> select 5+3+9+6 from stu1;
+
+   5+3+9+6
+----------
+        23
+        23
+        23
+        23
+        23
+        23
+        23
+
+7 rows selected.
+
+SQL> select 5+3+9+6 from dual;
+
+   5+3+9+6
+----------
+        23
+
+SQL> select 5+3+9+6 as Addition from dual;
+
+  ADDITION
+----------
+        23
+
+SQL> select * from dual;
+
+D
+-
+X
+
+SQL> select 5*3*6 as Multification from dual;
+
+MULTIFICATION
+-------------
+           90
+
+SQL> select 5+3-6*4/2 as Arthametic from dual;
+
+ARTHAMETIC
+----------
+        -4
+
+SQL> select * from stu1;
+
+      HTNO SNAME            SUB1       SUB2       SUB3 OBTAINEDMARKS        AVG
+---------- ---------- ---------- ---------- ---------- ------------- ----------
+PERCENTAGE
+----------
+       101 Krishna            99         98         97           294         98
+        98
+
+       102 Mahesh             99         97         95           291         97
+        97
+
+       103 Kiran              55         45         65           165         55
+        55
+
+
+      HTNO SNAME            SUB1       SUB2       SUB3 OBTAINEDMARKS        AVG
+---------- ---------- ---------- ---------- ---------- ------------- ----------
+PERCENTAGE
+----------
+       104 Shyam              89         91         78           258         86
+        86
+
+       105 Sunitha            56         68         99           223      74.33
+     74.33
+
+       106 Anil               65         88         40           193      64.33
+     64.33
+
+
+      HTNO SNAME            SUB1       SUB2       SUB3 OBTAINEDMARKS        AVG
+---------- ---------- ---------- ---------- ---------- ------------- ----------
+PERCENTAGE
+----------
+       107 Balu               55         88         67           210         70
+        70
+
+
+7 rows selected.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3
+---------- ---------- ---------- ---------- ----------
+       101 Krishna            10         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Viswava            87         65         47
+                              11                    22
+
+7 rows selected.
+
+SQL> alter stu2 add(totalmarks number(3) notnull);
+alter stu2 add(totalmarks number(3) notnull)
+      *
+ERROR at line 1:
+ORA-00940: invalid ALTER command
+
+
+SQL> alter table stu2 add(totalmarks number(3) notnull);
+alter table stu2 add(totalmarks number(3) notnull)
+                                          *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> alter table stu2 add(totalmarks number(3) not null);
+alter table stu2 add(totalmarks number(3) not null)
+            *
+ERROR at line 1:
+ORA-01758: table must be empty to add mandatory (NOT NULL) column
+
+
+SQL> alter table stu2 add(totalmarks number(3));
+
+Table altered.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3 TOTALMARKS
+---------- ---------- ---------- ---------- ---------- ----------
+       101 Krishna            10         98         97
+       102 Mahesh             99         97         95
+       103 Kiran              55         45         65
+       104 Shyam              89         91         78
+       105 Sunitha            56         68         99
+       106 Viswava            87         65         47
+                              11                    22
+
+7 rows selected.
+
+SQL> select * from sub1+sub2+sub3 from stu2;
+select * from sub1+sub2+sub3 from stu2
+                  *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> update stu2 set totalmarks=sub1+sub2+sub3;
+
+7 rows updated.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3 TOTALMARKS
+---------- ---------- ---------- ---------- ---------- ----------
+       101 Krishna            10         98         97        205
+       102 Mahesh             99         97         95        291
+       103 Kiran              55         45         65        165
+       104 Shyam              89         91         78        258
+       105 Sunitha            56         68         99        223
+       106 Viswava            87         65         47        199
+                              11                    22
+
+7 rows selected.
+
+SQL> delete stu2 where sub1=11;
+
+1 row deleted.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3 TOTALMARKS
+---------- ---------- ---------- ---------- ---------- ----------
+       101 Krishna            10         98         97        205
+       102 Mahesh             99         97         95        291
+       103 Kiran              55         45         65        165
+       104 Shyam              89         91         78        258
+       105 Sunitha            56         68         99        223
+       106 Viswava            87         65         47        199
+
+6 rows selected.
+
+SQL> alter table stu2 add(avgmarks number(5,2));
+
+Table altered.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3 TOTALMARKS   AVGMARKS
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+       101 Krishna            10         98         97        205
+       102 Mahesh             99         97         95        291
+       103 Kiran              55         45         65        165
+       104 Shyam              89         91         78        258
+       105 Sunitha            56         68         99        223
+       106 Viswava            87         65         47        199
+
+6 rows selected.
+
+SQL> update stu2 set avgmarks=totalmarks/3;
+
+6 rows updated.
+
+SQL> select * from stu2;
+
+      HTNO SNAME            SUB1       SUB2       SUB3 TOTALMARKS   AVGMARKS
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+       101 Krishna            10         98         97        205      68.33
+       102 Mahesh             99         97         95        291         97
+       103 Kiran              55         45         65        165         55
+       104 Shyam              89         91         78        258         86
+       105 Sunitha            56         68         99        223      74.33
+       106 Viswava            87         65         47        199      66.33
+
+6 rows selected.
+
+SQL> select htno,sname,totalmarks where totalmarks>=200;
+select htno,sname,totalmarks where totalmarks>=200
+                             *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select htno,sname,totalmarks from stu2 where totalmarks>=200;
+
+      HTNO SNAME      TOTALMARKS
+---------- ---------- ----------
+       101 Krishna           205
+       102 Mahesh            291
+       104 Shyam             258
+       105 Sunitha           223
+
+SQL> select * from stu2 where totalmarks>=200;
+
+      HTNO SNAME            SUB1       SUB2       SUB3 TOTALMARKS   AVGMARKS
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+       101 Krishna            10         98         97        205      68.33
+       102 Mahesh             99         97         95        291         97
+       104 Shyam              89         91         78        258         86
+       105 Sunitha            56         68         99        223      74.33
+
+SQL> commit;
+
+Commit complete.
+
+SQL>
