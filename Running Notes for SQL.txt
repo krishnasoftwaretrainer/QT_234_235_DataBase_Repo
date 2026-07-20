@@ -323,3 +323,37 @@ SQL Constraints:
 Unique:No Duplicate Values 
 Not Null:No Null[Empty] Values 
 Primary Key:No Duplicate and Null Values.
+=================
+
+SQL Dual Table:
+--------------
++:Addition  5+3=8
+
+SQL Operators:Symbols + < == and or 
+-------------
+1.Arithmetic Operators:+ - * /
+
+5+3+9+6=23
+
+2.Comparison[Relational] Operators:
+---------------
+< > <= >= == !=
+
+fage=35
+myage=32 
+fage>myage: 35>32:true 
+
+3.Logical Operators:
+---------------
+AND:Both are True:Result:True 
+Any one or Both False:Result:False 
+OR:Both or any one is True:Result:True 
+	Both are False:Result:False
+
+
+
+
+
+4.Operators used to Negate Conditions
+
+Select 
