@@ -320,10 +320,9 @@ Locks:
 
 SQL Constraints:
 ---------------
-Unique:No Duplicate Values 
-Not Null:No Null[Empty] Values 
+Unique:No Duplicate Values and Accept Null
+Not Null:No Null[Empty] Values and accept Duplicate
 Primary Key:No Duplicate and Null Values.
-=================
 
 SQL Dual Table:
 --------------
@@ -350,10 +349,11 @@ Any one or Both False:Result:False
 OR:Both or any one is True:Result:True 
 	Both are False:Result:False
 
+Sub-Queries[Nested-Queries]:
+----------------
+Main Query EXISTS ALL ANY(Sub Query);
 
 
 
-
-4.Operators used to Negate Conditions
-
-Select 
+SQL CLAUSES:
+--------
