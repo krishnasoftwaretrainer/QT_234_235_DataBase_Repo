@@ -4003,4 +4003,724 @@ SQL> select distinct salary from customers;
 6 rows selected.
 
 SQL>
+===========================
+
+SQL*Plus: Release 11.2.0.2.0 Production on Wed Jul 22 09:42:59 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qt235
+Enter password:
+Connected.
+SQL> select 30+50 as sum from dual;
+
+       SUM
+----------
+        80
+
+SQL> select sum(30+50) as sum from dual;
+
+       SUM
+----------
+        80
+
+SQL> select sum(30+50+40) as sum from dual;
+
+       SUM
+----------
+       120
+
+SQL> select 30+50+40 as sum from dual;
+
+       SUM
+----------
+       120
+
+SQL> select * from customers;
+
+        ID NAME                   AGE ADDRESS             SALARY
+---------- --------------- ---------- --------------- ----------
+         1 Ramesh                  32 Ahmedabad             2000
+         2 Khilan                  25 Delhi                 1500
+         3 Kaushik                 23 Kota                  2000
+         4 Chaitali                25 Mumbai                6500
+         5 Hardik                  27 Bhopal                8500
+         6 Komal                   22 MP                    4500
+         7 Muffy                   24 Indore               10000
+
+7 rows selected.
+
+SQL> select sum(salary) from customers;
+
+SUM(SALARY)
+-----------
+      35000
+
+SQL> select 2000+1500+2000+6500+8500+4500+10000 as sum from dual;
+
+       SUM
+----------
+     35000
+
+SQL> select min(salary) from customers;
+
+MIN(SALARY)
+-----------
+       1500
+
+SQL> select max(salary) from customers;
+
+MAX(SALARY)
+-----------
+      10000
+
+SQL> select avg(salary) from customers;
+
+AVG(SALARY)
+-----------
+       5000
+
+SQL> commit;
+
+Commit complete.
+
+SQL> desc customers;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(2)
+ NAME                                      NOT NULL VARCHAR2(15)
+ AGE                                       NOT NULL NUMBER(2)
+ ADDRESS                                   NOT NULL VARCHAR2(15)
+ SALARY                                    NOT NULL NUMBER(7,2)
+
+SQL> alter table customers add(city char(10));
+
+Table altered.
+
+SQL> select * from customers;
+
+        ID NAME                   AGE ADDRESS             SALARY CITY
+---------- --------------- ---------- --------------- ---------- ----------
+         1 Ramesh                  32 Ahmedabad             2000
+         2 Khilan                  25 Delhi                 1500
+         3 Kaushik                 23 Kota                  2000
+         4 Chaitali                25 Mumbai                6500
+         5 Hardik                  27 Bhopal                8500
+         6 Komal                   22 MP                    4500
+         7 Muffy                   24 Indore               10000
+
+7 rows selected.
+
+SQL> insert into customers(city) values('Hyd');
+insert into customers(city) values('Hyd')
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("QT235"."CUSTOMERS"."ID")
+
+
+SQL> insert into customers(id,name,age,address) values(9,'feferfe',99,00000);
+insert into customers(id,name,age,address) values(9,'feferfe',99,00000)
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("QT235"."CUSTOMERS"."SALARY")
+
+
+SQL> insert into customers(id,name,age,address) values(9,'feferfe',99,1111);
+insert into customers(id,name,age,address) values(9,'feferfe',99,1111)
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("QT235"."CUSTOMERS"."SALARY")
+
+
+SQL> insert into customers(id,name,age,address,salary) values(9,'feferfe',99,'jjjj',1111);
+
+1 row created.
+
+SQL> select * from customers;
+
+        ID NAME                   AGE ADDRESS             SALARY CITY
+---------- --------------- ---------- --------------- ---------- ----------
+         1 Ramesh                  32 Ahmedabad             2000
+         2 Khilan                  25 Delhi                 1500
+         3 Kaushik                 23 Kota                  2000
+         4 Chaitali                25 Mumbai                6500
+         5 Hardik                  27 Bhopal                8500
+         6 Komal                   22 MP                    4500
+         7 Muffy                   24 Indore               10000
+         9 feferfe                 99 jjjj                  1111
+
+8 rows selected.
+
+SQL> insert into customers(id,name,age,address) values(10,'feferfe',99,1111,'HYD');
+insert into customers(id,name,age,address) values(10,'feferfe',99,1111,'HYD')
+            *
+ERROR at line 1:
+ORA-00913: too many values
+
+
+SQL> insert into customers(id,name,age,address,city) values(10,'feferfe',99,1111,'HYD');
+insert into customers(id,name,age,address,city) values(10,'feferfe',99,1111,'HYD')
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("QT235"."CUSTOMERS"."SALARY")
+
+
+SQL> insert into customers(id,name,age,address,salaty,city) values(10,'feferfe',99,'rttr',1111,'HYD');
+insert into customers(id,name,age,address,salaty,city) values(10,'feferfe',99,'rttr',1111,'HYD')
+                                          *
+ERROR at line 1:
+ORA-00904: "SALATY": invalid identifier
+
+
+SQL> insert into customers(id,name,age,address,salary,city) values(10,'feferfe',99,'rttr',1111,'HYD');
+
+1 row created.
+
+SQL> select * from customers;
+
+        ID NAME                   AGE ADDRESS             SALARY CITY
+---------- --------------- ---------- --------------- ---------- ----------
+         1 Ramesh                  32 Ahmedabad             2000
+         2 Khilan                  25 Delhi                 1500
+         3 Kaushik                 23 Kota                  2000
+         4 Chaitali                25 Mumbai                6500
+         5 Hardik                  27 Bhopal                8500
+         6 Komal                   22 MP                    4500
+         7 Muffy                   24 Indore               10000
+         9 feferfe                 99 jjjj                  1111
+        10 feferfe                 99 rttr                  1111 HYD
+
+9 rows selected.
+
+SQL> select count(*) from customers;
+
+  COUNT(*)
+----------
+         9
+
+SQL> select count(city) from customers;
+
+COUNT(CITY)
+-----------
+          1
+
+SQL> select count(id) from customers;
+
+ COUNT(ID)
+----------
+         9
+
+SQL> select count(age) from customers;
+
+COUNT(AGE)
+----------
+         9
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+CUSTOMERS                      TABLE
+EMP                            TABLE
+FACEBOOK                       TABLE
+STU1                           TABLE
+STU2                           TABLE
+STU3                           TABLE
+STU4                           TABLE
+STU5                           TABLE
+
+8 rows selected.
+
+SQL> select * from facebook;;
+select * from facebook;
+                      *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> select * from facebook;
+
+FIRSTNAME            SURNAME                     DAY MONTH              YEAR
+-------------------- -------------------- ---------- ------------ ----------
+GENDER     MOBILENUMBER PASSWORD
+---------- ------------ ---------------
+Rama                 Rao                          10 May                1999
+Male         1234567890 Ram#123
+
+Krishna              Mohan                        15 June               2000
+Male           11111111 Krishna321
+
+Lalitha              sdggf                        22 efrerer            1998
+Female            12345 ferfe
+
+
+FIRSTNAME            SURNAME                     DAY MONTH              YEAR
+-------------------- -------------------- ---------- ------------ ----------
+GENDER     MOBILENUMBER PASSWORD
+---------- ------------ ---------------
+Shyam                Sing                         14 December           2005
+Male          123456789 123#123
+
+Shyam                Sing                         14 December           2005
+Male          123456789 123#123
+
+Shyam                Sing                         14 December           2005
+Male          123456789 123#123
+
+
+FIRSTNAME            SURNAME                     DAY MONTH              YEAR
+-------------------- -------------------- ---------- ------------ ----------
+GENDER     MOBILENUMBER PASSWORD
+---------- ------------ ---------------
+Shyam                Sing                         14 December           2005
+Male          123456789 123#123
+
+
+7 rows selected.
+
+SQL> select * from emp;
+
+no rows selected
+
+SQL> select * from stu3;;
+select * from stu3;
+                  *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> select * from stu3;
+
+       RNO SNAME      ADDRESS                   LIBID
+---------- ---------- -------------------- ----------
+       111 krishna
+       112 Ramesh     Hyd                         101
+       113 Krishna    Sec                         102
+
+SQL> select count(*) from stu3;
+
+  COUNT(*)
+----------
+         3
+
+SQL> select count(address) from stu3;
+
+COUNT(ADDRESS)
+--------------
+             2
+
+SQL> select count(sname) from stu3;
+
+COUNT(SNAME)
+------------
+           3
+
+SQL> select count(libid) from stu3;
+
+COUNT(LIBID)
+------------
+           2
+
+SQL> select count(sname) from stu3;
+
+COUNT(SNAME)
+------------
+           3
+
+SQL> select count(distinct sname) from stu3;
+
+COUNT(DISTINCTSNAME)
+--------------------
+                   3
+
+SQL> select * from stu3;
+
+       RNO SNAME      ADDRESS                   LIBID
+---------- ---------- -------------------- ----------
+       111 krishna
+       112 Ramesh     Hyd                         101
+       113 Krishna    Sec                         102
+
+SQL> insert into stu3(RNO,sname) values(114,'Ramesh');
+
+1 row created.
+
+SQL> select * from stu3;
+
+       RNO SNAME      ADDRESS                   LIBID
+---------- ---------- -------------------- ----------
+       111 krishna
+       112 Ramesh     Hyd                         101
+       113 Krishna    Sec                         102
+       114 Ramesh
+
+SQL> select count(sname) from stu3;
+
+COUNT(SNAME)
+------------
+           4
+
+SQL> select count(distinct sname) from stu3;
+
+COUNT(DISTINCTSNAME)
+--------------------
+                   3
+
+SQL> select sysdate from dual;
+
+SYSDATE
+---------
+22-JUL-26
+
+SQL> select current_date from dual;
+
+CURRENT_D
+---------
+22-JUL-26
+
+SQL> select current_timestamp from dual;
+
+CURRENT_TIMESTAMP
+---------------------------------------------------------------------------
+22-JUL-26 10.07.36.364000 AM +05:30
+
+SQL> select localtimestamp from dual;
+
+LOCALTIMESTAMP
+---------------------------------------------------------------------------
+22-JUL-26 10.08.39.866000 AM
+
+SQL> select upper('abcdefgh') from dual;
+
+UPPER('A
+--------
+ABCDEFGH
+
+SQL> select lower('ABCDEFGH') from dual;
+
+LOWER('A
+--------
+abcdefgh
+
+SQL> select * from customers;
+
+        ID NAME                   AGE ADDRESS             SALARY CITY
+---------- --------------- ---------- --------------- ---------- ----------
+         1 Ramesh                  32 Ahmedabad             2000
+         2 Khilan                  25 Delhi                 1500
+         3 Kaushik                 23 Kota                  2000
+         4 Chaitali                25 Mumbai                6500
+         5 Hardik                  27 Bhopal                8500
+         6 Komal                   22 MP                    4500
+         7 Muffy                   24 Indore               10000
+         9 feferfe                 99 jjjj                  1111
+        10 feferfe                 99 rttr                  1111 HYD
+
+9 rows selected.
+
+SQL> select upper(name) from customers;
+
+UPPER(NAME)
+---------------
+RAMESH
+KHILAN
+KAUSHIK
+CHAITALI
+HARDIK
+KOMAL
+MUFFY
+FEFERFE
+FEFERFE
+
+9 rows selected.
+
+SQL> select upper(name) as cname from customers;
+
+CNAME
+---------------
+RAMESH
+KHILAN
+KAUSHIK
+CHAITALI
+HARDIK
+KOMAL
+MUFFY
+FEFERFE
+FEFERFE
+
+9 rows selected.
+
+SQL> select name,upper(name) as cname from customers;
+
+NAME            CNAME
+--------------- ---------------
+Ramesh          RAMESH
+Khilan          KHILAN
+Kaushik         KAUSHIK
+Chaitali        CHAITALI
+Hardik          HARDIK
+Komal           KOMAL
+Muffy           MUFFY
+feferfe         FEFERFE
+feferfe         FEFERFE
+
+9 rows selected.
+
+SQL> select name,upper(name) as cname from customers where salary>=5000;
+
+NAME            CNAME
+--------------- ---------------
+Chaitali        CHAITALI
+Hardik          HARDIK
+Muffy           MUFFY
+
+SQL> select name,upper(name) as cname,salary from customers where salary>=5000;
+
+NAME            CNAME               SALARY
+--------------- --------------- ----------
+Chaitali        CHAITALI              6500
+Hardik          HARDIK                8500
+Muffy           MUFFY                10000
+
+SQL> select name as cust_name,upper(name) as cname,salary from customers where salary>=5000;
+
+CUST_NAME       CNAME               SALARY
+--------------- --------------- ----------
+Chaitali        CHAITALI              6500
+Hardik          HARDIK                8500
+Muffy           MUFFY                10000
+
+SQL> select name as cust_name,lower(name) as cname,salary from customers where salary>=5000;
+
+CUST_NAME       CNAME               SALARY
+--------------- --------------- ----------
+Chaitali        chaitali              6500
+Hardik          hardik                8500
+Muffy           muffy                10000
+
+SQL> select name, initcap(name) as cname from customers;
+
+NAME            CNAME
+--------------- ---------------
+Ramesh          Ramesh
+Khilan          Khilan
+Kaushik         Kaushik
+Chaitali        Chaitali
+Hardik          Hardik
+Komal           Komal
+Muffy           Muffy
+feferfe         Feferfe
+feferfe         Feferfe
+
+9 rows selected.
+
+SQL> select length('abcdefgh') from dual;
+
+LENGTH('ABCDEFGH')
+------------------
+                 8
+
+SQL> select name, length(name) as lenname from customers;
+
+NAME               LENNAME
+--------------- ----------
+Ramesh                   6
+Khilan                   6
+Kaushik                  7
+Chaitali                 8
+Hardik                   6
+Komal                    5
+Muffy                    5
+feferfe                  7
+feferfe                  7
+
+9 rows selected.
+
+SQL> select name, length(address) as lenname from customers;
+
+NAME               LENNAME
+--------------- ----------
+Ramesh                   9
+Khilan                   5
+Kaushik                  4
+Chaitali                 6
+Hardik                   6
+Komal                    2
+Muffy                    6
+feferfe                  4
+feferfe                  4
+
+9 rows selected.
+
+SQL> select name,address length(address) as lenname from customers;
+select name,address length(address) as lenname from customers
+                          *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select name,address, length(address) as lenname from customers;
+
+NAME            ADDRESS            LENNAME
+--------------- --------------- ----------
+Ramesh          Ahmedabad                9
+Khilan          Delhi                    5
+Kaushik         Kota                     4
+Chaitali        Mumbai                   6
+Hardik          Bhopal                   6
+Komal           MP                       2
+Muffy           Indore                   6
+feferfe         jjjj                     4
+feferfe         rttr                     4
+
+9 rows selected.
+
+SQL> SELECT REPLACE('Hello World', 'Hello', 'Hi') AS Result FROM dual;
+
+RESULT
+--------
+Hi World
+
+SQL> SELECT REPLACE(name,'Chaitali','Chythan') from customers
+  2  ;
+
+REPLACE(NAME,'CHAITALI','CHYTHAN')
+--------------------------------------------------------------------------------
+Ramesh
+Khilan
+Kaushik
+Chythan
+Hardik
+Komal
+Muffy
+feferfe
+feferfe
+
+9 rows selected.
+
+SQL> SELECT name,REPLACE(name,'Chaitali','Chythan') from customers;
+
+NAME
+---------------
+REPLACE(NAME,'CHAITALI','CHYTHAN')
+--------------------------------------------------------------------------------
+Ramesh
+Ramesh
+
+Khilan
+Khilan
+
+Kaushik
+Kaushik
+
+
+NAME
+---------------
+REPLACE(NAME,'CHAITALI','CHYTHAN')
+--------------------------------------------------------------------------------
+Chaitali
+Chythan
+
+Hardik
+Hardik
+
+Komal
+Komal
+
+
+NAME
+---------------
+REPLACE(NAME,'CHAITALI','CHYTHAN')
+--------------------------------------------------------------------------------
+Muffy
+Muffy
+
+feferfe
+feferfe
+
+feferfe
+feferfe
+
+
+9 rows selected.
+
+SQL> SELECT REPLACE(name,'Chaitali','Chythan') from customers;
+
+REPLACE(NAME,'CHAITALI','CHYTHAN')
+--------------------------------------------------------------------------------
+Ramesh
+Khilan
+Kaushik
+Chythan
+Hardik
+Komal
+Muffy
+feferfe
+feferfe
+
+9 rows selected.
+
+SQL> SELECT REPLACE(name,'Chaitali','Chythan'),name from customers;
+
+REPLACE(NAME,'CHAITALI','CHYTHAN')
+--------------------------------------------------------------------------------
+NAME
+---------------
+Ramesh
+Ramesh
+
+Khilan
+Khilan
+
+Kaushik
+Kaushik
+
+
+REPLACE(NAME,'CHAITALI','CHYTHAN')
+--------------------------------------------------------------------------------
+NAME
+---------------
+Chythan
+Chaitali
+
+Hardik
+Hardik
+
+Komal
+Komal
+
+
+REPLACE(NAME,'CHAITALI','CHYTHAN')
+--------------------------------------------------------------------------------
+NAME
+---------------
+Muffy
+Muffy
+
+feferfe
+feferfe
+
+feferfe
+feferfe
+
+
+9 rows selected.
+
+SQL> SELECT REPLACE(name,'Chaitali','Chythan') from customers;
+
+REPLACE(NAME,'CHAITALI','CHYTHAN')
+--------------------------------------------------------------------------------
+Ramesh
+Khilan
+Kaushik
+Chythan
+Hardik
+Komal
+Muffy
+feferfe
+feferfe
+
+9 rows selected.
+
+SQL>
 
