@@ -4723,4 +4723,625 @@ feferfe
 9 rows selected.
 
 SQL>
+===================================
 
+SQL*Plus: Release 11.2.0.2.0 Production on Thu Jul 23 09:37:23 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qt235
+Enter password:
+Connected.
+SQL> select LPAD('oracle',10,'z') from dual;
+
+LPAD('ORAC
+----------
+zzzzoracle
+
+SQL> select RPAD('oracle',10,'z') from dual;
+
+RPAD('ORAC
+----------
+oraclezzzz
+
+SQL> SELECT LTRIM('   Hello World') AS trimmed_string FROM dual;
+
+TRIMMED_STR
+-----------
+Hello World
+
+SQL> SELECT RTRIM('   Hello World     ') AS trimmed_string FROM dual;
+
+TRIMMED_STRING
+--------------
+   Hello World
+
+SQL> SELECT TRIM('   Hello World     ') AS trimmed_string FROM dual;
+
+TRIMMED_STR
+-----------
+Hello World
+
+SQL> Select LTRIM('zzoracle','z') from dual;
+
+LTRIM(
+------
+oracle
+
+SQL> Select LTRIM('zzoracle','y') from dual;
+
+LTRIM('Z
+--------
+zzoracle
+
+SQL> Select LTRIM('zzoracle','zzo') from dual;
+
+LTRIM
+-----
+racle
+
+SQL> Select LTRIM('zzoracle','zzora') from dual;
+
+LTR
+---
+cle
+
+SQL> Select RTRIM('zzoracle','zzora') from dual;
+
+RTRIM('Z
+--------
+zzoracle
+
+SQL> Select RTRIM('zzoracle','e') from dual;
+
+RTRIM('
+-------
+zzoracl
+
+SQL> Select RTRIM('zzoracle','el') from dual;
+
+RTRIM(
+------
+zzorac
+
+SQL> Select RTRIM('zzoracle','elca') from dual;
+
+RTRI
+----
+zzor
+
+SQL> Select TRIM('zzzzzoraclezzzzz','z') from dual;
+Select TRIM('zzzzzoraclezzzzz','z') from dual
+                              *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> Select TRIM('z' from 'zzzzoraclezzzz' ) from dual;
+
+TRIM('
+------
+oracle
+
+SQL> SELECT INSTR('Hello World', 'W') AS position FROM dual;
+
+  POSITION
+----------
+         7
+
+SQL> SELECT INSTR('Hello World', 'World') AS position FROM dual;
+
+  POSITION
+----------
+         7
+
+SQL> SELECT INSTR('Hello World', 'orld') AS position FROM dual;
+
+  POSITION
+----------
+         8
+
+SQL> SELECT INSTR('Hello World', 'd') AS position FROM dual;
+
+  POSITION
+----------
+        11
+
+SQL> Select SUBSTR(‘ORACLE’,2,3) from dual;
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> Select SUBSTR('ORACLE',2,3) from dual;
+
+SUB
+---
+RAC
+
+SQL> Select SUBSTR('ABCDEFGH',3,4) from dual;
+
+SUBS
+----
+CDEF
+
+SQL> SELECT CONCAT('Hello', 'World') AS concatenated_string FROM dual;
+
+CONCATENAT
+----------
+HelloWorld
+
+SQL> SELECT CONCAT('Hello', ' World') AS concatenated_string FROM dual;
+
+CONCATENATE
+-----------
+Hello World
+
+SQL> SELECT CONCAT('Hello ', 'World') AS concatenated_string FROM dual;
+
+CONCATENATE
+-----------
+Hello World
+
+SQL> SELECT 'Hello' || ' ' || 'World' AS concatenated_string FROM dual;
+
+CONCATENATE
+-----------
+Hello World
+
+SQL> SELECT TRANSLATE(sname, 'ae', '12') FROM dual;
+SELECT TRANSLATE(sname, 'ae', '12') FROM dual
+                 *
+ERROR at line 1:
+ORA-00904: "SNAME": invalid identifier
+
+
+SQL> SELECT TRANSLATE('abcdefgh', 'ae', '12') FROM dual;
+
+TRANSLAT
+--------
+1bcd2fgh
+
+SQL> SELECT TRANSLATE('abcadefagha', 'ae', '12') FROM dual;
+
+TRANSLATE('
+-----------
+1bc1d2f1gh1
+
+SQL> SELECT TRANSLATE('abcadefagha', 'ade', '#@$') FROM dual;
+
+TRANSLATE('
+-----------
+#bc#@$f#gh#
+
+SQL> SELECT sname, ASCII('Aa#') FROM dual;
+SELECT sname, ASCII('Aa#') FROM dual
+       *
+ERROR at line 1:
+ORA-00904: "SNAME": invalid identifier
+
+
+SQL> SELECT ASCII('Aa#') FROM dual;
+
+ASCII('AA#')
+------------
+          65
+
+SQL> SELECT ASCII('A') FROM dual;
+
+ASCII('A')
+----------
+        65
+
+SQL> SELECT ASCII('a') FROM dual;
+
+ASCII('A')
+----------
+        97
+
+SQL> SELECT ASCII('#') FROM dual;
+
+ASCII('#')
+----------
+        35
+
+SQL> SELECT name, ASCII(name) FROM customers;
+
+NAME            ASCII(NAME)
+--------------- -----------
+Ramesh                   82
+Khilan                   75
+Kaushik                  75
+Chaitali                 67
+Hardik                   72
+Komal                    75
+Muffy                    77
+feferfe                 102
+feferfe                 102
+
+9 rows selected.
+
+SQL> SELECT ABS(-10) AS absolute_value FROM dual;
+
+ABSOLUTE_VALUE
+--------------
+            10
+
+SQL> SELECT ABS(-10.85) AS absolute_value FROM dual;
+
+ABSOLUTE_VALUE
+--------------
+         10.85
+
+SQL> SELECT ABS(+10.85) AS absolute_value FROM dual;
+
+ABSOLUTE_VALUE
+--------------
+         10.85
+
+SQL> Select SQRT(16) from dual;
+
+  SQRT(16)
+----------
+         4
+
+SQL> Select SQRT(125) from dual;
+
+ SQRT(125)
+----------
+11.1803399
+
+SQL> Select SQRT(625) from dual;
+
+ SQRT(625)
+----------
+        25
+
+SQL> Select SQRT(4) from dual;
+
+   SQRT(4)
+----------
+         2
+
+SQL> select MOD(25,5) from dual;
+
+ MOD(25,5)
+----------
+         0
+
+SQL> select MOD(29,5) from dual;
+
+ MOD(29,5)
+----------
+         4
+
+SQL> select (29/5) from dual;
+
+    (29/5)
+----------
+       5.8
+
+SQL> Select POWER(2,5) from dual;
+
+POWER(2,5)
+----------
+        32
+
+SQL> Select CEIL(40.9) from dual;
+
+CEIL(40.9)
+----------
+        41
+
+SQL> Select CEIL(40.2) from dual;
+
+CEIL(40.2)
+----------
+        41
+
+SQL> Select FLOOR(40.9) from dual;
+
+FLOOR(40.9)
+-----------
+         40
+
+SQL> Select FLOOR(40.2) from dual;
+
+FLOOR(40.2)
+-----------
+         40
+
+SQL> Select ROUND(99.2) from dual;
+
+ROUND(99.2)
+-----------
+         99
+
+SQL> Select ROUND(99.6) from dual;
+
+ROUND(99.6)
+-----------
+        100
+
+SQL> Select ROUND(123.863,2) from dual;
+
+ROUND(123.863,2)
+----------------
+          123.86
+
+SQL> Select ROUND(123.863,3) from dual;
+
+ROUND(123.863,3)
+----------------
+         123.863
+
+SQL> Select ROUND(123.863,1) from dual;
+
+ROUND(123.863,1)
+----------------
+           123.9
+
+SQL> Select ROUND(123.8642,1) from dual;
+
+ROUND(123.8642,1)
+-----------------
+            123.9
+
+SQL> Select ROUND(123.8642,0) from dual;
+
+ROUND(123.8642,0)
+-----------------
+              124
+
+SQL> Select ROUND(123.8642,4) from dual;
+
+ROUND(123.8642,4)
+-----------------
+         123.8642
+
+SQL> Select ROUND(123.8642,3) from dual;
+
+ROUND(123.8642,3)
+-----------------
+          123.864
+
+SQL> Select ROUND(123.8642,2) from dual;
+
+ROUND(123.8642,2)
+-----------------
+           123.86
+
+SQL> Select ROUND(123.8648,2) from dual;
+
+ROUND(123.8648,2)
+-----------------
+           123.86
+
+SQL> Select ROUND(123.8648,3) from dual;
+
+ROUND(123.8648,3)
+-----------------
+          123.865
+
+SQL> Select ROUND(123.8648,4) from dual;
+
+ROUND(123.8648,4)
+-----------------
+         123.8648
+
+SQL> Select ROUND(856.81766,3) from dual;
+
+ROUND(856.81766,3)
+------------------
+           856.818
+
+SQL> Select ROUND(856.81744,3) from dual;
+
+ROUND(856.81744,3)
+------------------
+           856.817
+
+SQL> Select ROUND(123.868,2) from dual;
+
+ROUND(123.868,2)
+----------------
+          123.87
+
+SQL> Select ROUND(123.862,2) from dual;
+
+ROUND(123.862,2)
+----------------
+          123.86
+
+SQL> Select ROUND(123.828,2) from dual;
+
+ROUND(123.828,2)
+----------------
+          123.83
+
+SQL> Select ROUND(5678,-1) from dual;
+
+ROUND(5678,-1)
+--------------
+          5680
+
+SQL> Select ROUND(5678,-2) from dual;
+
+ROUND(5678,-2)
+--------------
+          5700
+
+SQL> Select ROUND(5678,-3) from dual;
+
+ROUND(5678,-3)
+--------------
+          6000
+
+SQL> Select ROUND(5478,-3) from dual;
+
+ROUND(5478,-3)
+--------------
+          5000
+
+SQL> Select TRUNC(40.9) from dual;
+
+TRUNC(40.9)
+-----------
+         40
+
+SQL> Select TRUNC(40.3) from dual;
+
+TRUNC(40.3)
+-----------
+         40
+
+SQL> Select TRUNC(40.1234,2) from dual;
+
+TRUNC(40.1234,2)
+----------------
+           40.12
+
+SQL> Select TRUNC(40.1234,3) from dual;
+
+TRUNC(40.1234,3)
+----------------
+          40.123
+
+SQL> Select TRUNC(40.1234,1) from dual;
+
+TRUNC(40.1234,1)
+----------------
+            40.1
+
+SQL> Select TRUNC(40.1234,4) from dual;
+
+TRUNC(40.1234,4)
+----------------
+         40.1234
+
+SQL> Select TRUNC(40.123456,1) from dual;
+
+TRUNC(40.123456,1)
+------------------
+              40.1
+
+SQL> Select TRUNC(40.598765,1) from dual;
+
+TRUNC(40.598765,1)
+------------------
+              40.5
+
+SQL> Select TRUNC(40.598765,2) from dual;
+
+TRUNC(40.598765,2)
+------------------
+             40.59
+
+SQL> Select TRUNC(40.598765,3) from dual;
+
+TRUNC(40.598765,3)
+------------------
+            40.598
+
+SQL> Select TRUNC(40.598765,4) from dual;
+
+TRUNC(40.598765,4)
+------------------
+           40.5987
+
+SQL> Select TRUNC(40.598765,9) from dual;
+
+TRUNC(40.598765,9)
+------------------
+         40.598765
+
+SQL> Select TRUNC(6854,-1) from dual;
+
+TRUNC(6854,-1)
+--------------
+          6850
+
+SQL> Select TRUNC(6858,-1) from dual;
+
+TRUNC(6858,-1)
+--------------
+          6850
+
+SQL> Select TRUNC(6858,-2) from dual;
+
+TRUNC(6858,-2)
+--------------
+          6800
+
+SQL> Select TRUNC(6822,-2) from dual;
+
+TRUNC(6822,-2)
+--------------
+          6800
+
+SQL> Select TRUNC(6822,-3) from dual;
+
+TRUNC(6822,-3)
+--------------
+          6000
+
+SQL> Select TRUNC(6822,-4) from dual;
+
+TRUNC(6822,-4)
+--------------
+             0
+
+SQL> Select TRUNC(6822,-5) from dual;
+
+TRUNC(6822,-5)
+--------------
+             0
+
+SQL> Select GREATEST (100,200,300) from dual;
+
+GREATEST(100,200,300)
+---------------------
+                  300
+
+SQL> Select GREATEST (1000,200,300) from dual;
+
+GREATEST(1000,200,300)
+----------------------
+                  1000
+
+SQL> Select GREATEST (1000,2000,300) from dual;
+
+GREATEST(1000,2000,300)
+-----------------------
+                   2000
+
+SQL> Select LEAST (1000,2000,300) from dual;
+
+LEAST(1000,2000,300)
+--------------------
+                 300
+
+SQL> Select LEAST (100,200,300) from dual;
+
+LEAST(100,200,300)
+------------------
+               100
+
+SQL> SELECT SIGN(7) AS sign_value FROM dual;
+
+SIGN_VALUE
+----------
+         1
+
+SQL> SELECT SIGN(-7) AS sign_value FROM dual;
+
+SIGN_VALUE
+----------
+        -1
+
+SQL> SELECT SIGN(10) AS result1, SIGN(0) AS result2, SIGN(-5) AS result3 FROM dual;
+
+   RESULT1    RESULT2    RESULT3
+---------- ---------- ----------
+         1          0         -1
+
+SQL>
