@@ -5345,3 +5345,342 @@ SQL> SELECT SIGN(10) AS result1, SIGN(0) AS result2, SIGN(-5) AS result3 FROM du
          1          0         -1
 
 SQL>
+===========================
+
+SQL*Plus: Release 11.2.0.2.0 Production on Fri Jul 24 09:36:10 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qt235
+Enter password:
+Connected.
+SQL> select * from sysdate;
+select * from sysdate
+              *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> select sysdate from dual;
+
+SYSDATE
+---------
+24-JUL-26
+
+SQL> select current_date from dual;
+
+CURRENT_D
+---------
+24-JUL-26
+
+SQL> select systimestamp from dual;
+
+SYSTIMESTAMP
+---------------------------------------------------------------------------
+24-JUL-26 09.39.55.891000 AM +05:30
+
+SQL> select current_timestamp from dual;
+
+CURRENT_TIMESTAMP
+---------------------------------------------------------------------------
+24-JUL-26 09.41.40.709000 AM +05:30
+
+SQL> select local_timestamp from dual;
+select local_timestamp from dual
+       *
+ERROR at line 1:
+ORA-00904: "LOCAL_TIMESTAMP": invalid identifier
+
+
+SQL> select localtimestamp from dual;
+
+LOCALTIMESTAMP
+---------------------------------------------------------------------------
+24-JUL-26 09.42.38.036000 AM
+
+SQL> Select ADD_MONTHS('11-APR-26',3) from dual;
+
+ADD_MONTH
+---------
+11-JUL-26
+
+SQL> Select ADD_MONTHS(sysdate,12) from dual;
+
+ADD_MONTH
+---------
+24-JUL-27
+
+SQL> Select MONTHS_BETWEEN('11-JUL-24','01-Jul-26') from dual;
+
+MONTHS_BETWEEN('11-JUL-24','01-JUL-26')
+---------------------------------------
+                             -23.677419
+
+SQL> Select MONTHS_BETWEEN('11-JUL-26','01-Jul-24') from dual;
+
+MONTHS_BETWEEN('11-JUL-26','01-JUL-24')
+---------------------------------------
+                             24.3225806
+
+SQL> Select MONTHS_BETWEEN(sysdate,'01-Jul-24') from dual;
+
+MONTHS_BETWEEN(SYSDATE,'01-JUL-24')
+-----------------------------------
+                         24.7551027
+
+SQL> Select MONTHS_BETWEEN(sysdate,'01-Jul-24')/12 from dual;
+
+MONTHS_BETWEEN(SYSDATE,'01-JUL-24')/12
+--------------------------------------
+                            2.06293005
+
+SQL> Select NEXT_DAY('11-JAN-26', 'MONDAY') from dual;
+
+NEXT_DAY(
+---------
+12-JAN-26
+
+SQL> Select NEXT_DAY(sysdate, 'MONDAY') from dual;
+
+NEXT_DAY(
+---------
+27-JUL-26
+
+SQL> Select NEXT_DAY(sysdate, 'FRIDAY') from dual;
+
+NEXT_DAY(
+---------
+31-JUL-26
+
+SQL> Select LAST_DAY('11-jun-26') from dual;
+
+LAST_DAY(
+---------
+30-JUN-26
+
+SQL> Select LAST_DAY('11-DEC-26') from dual;
+
+LAST_DAY(
+---------
+31-DEC-26
+
+SQL> Select LAST_DAY('11-FEB-26') from dual;
+
+LAST_DAY(
+---------
+28-FEB-26
+
+SQL> Select LAST_DAY(SYSDATE) from dual;
+
+LAST_DAY(
+---------
+31-JUL-26
+
+SQL> select sysdate from dual;
+
+SYSDATE
+---------
+24-JUL-26
+
+SQL> SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') FROM dual;
+
+TO_CHAR(SY
+----------
+2026-07-24
+
+SQL> SELECT TO_CHAR(SYSDATE, 'MM-DD-YYYY') FROM dual;
+
+TO_CHAR(SY
+----------
+07-24-2026
+
+SQL> SELECT TO_CHAR(SYSDATE, 'DD-MM-YYYY') FROM dual;
+
+TO_CHAR(SY
+----------
+24-07-2026
+
+SQL> SELECT TO_CHAR(SYSDATE, 'YYYY') FROM dual;
+
+TO_C
+----
+2026
+
+SQL> SELECT TO_CHAR(SYSDATE, 'YY') FROM dual;
+
+TO
+--
+26
+
+SQL> SELECT TO_CHAR(SYSDATE, 'DD') FROM dual;
+
+TO
+--
+24
+
+SQL> SELECT TO_CHAR(SYSDATE, 'MM') FROM dual;
+
+TO
+--
+07
+
+SQL> SELECT TO_CHAR(SYSDATE, 'Day: MONTH, DD, YYYY') FROM dual;
+
+TO_CHAR(SYSDATE,'DAY:MONTH,DD,YYYY')
+--------------------------------------------------------------------------------
+Friday   : JULY     , 24, 2026
+
+SQL> select TO_CHAR(SYSDATE, 'Day: MONTH DD, YYYY', 'NLS_DATE_LANGUAGE = Spanish') from dual;
+
+TO_CHAR(SYSDATE,'DAY:MONTHDD,YYYY','NLS_DATE_LANGUAGE=SPANISH')
+--------------------------------------------------------------------------------
+Viernes  : JULIO      24, 2026
+
+SQL> select TO_CHAR(SYSDATE, 'Day: MONTH DD, YYYY', 'NLS_DATE_LANGUAGE = ENGLISH') from dual;
+
+TO_CHAR(SYSDATE,'DAY:MONTHDD,YYYY','NLS_DATE_LANGUAGE=ENGLISH')
+--------------------------------------------------------------------------------
+Friday   : JULY      24, 2026
+
+SQL> select TO_CHAR(SYSDATE, 'Day: MONTH DD, YYYY', 'NLS_DATE_LANGUAGE = HINDI') from dual;
+
+TO_CHAR(SYSDATE,'DAY:MONTHDD,YYYY','NLS_DATE_LANGUAGE=HINDI')
+-----------------------------------------------------------------------
+┐┐┐┐┐┐┐┐: ┐┐┐┐┐   24, 2026
+
+SQL> select TO_CHAR(SYSDATE, 'Day: MONTH DD, YYYY', 'NLS_DATE_LANGUAGE = TELUGU') from dual;
+
+TO_CHAR(SYSDATE,'DAY:MONTHDD,YYYY','NLS_DATE_LANGUAGE=TELUGU')
+--------------------------------------------------------------------------------
+┐┐┐┐┐┐┐┐┐: ┐┐┐┐       24, 2026
+
+SQL> select TO_CHAR(SYSDATE, 'Day: MONTH DD, YYYY', 'NLS_DATE_LANGUAGE = ENGLISH') from dual;
+
+TO_CHAR(SYSDATE,'DAY:MONTHDD,YYYY','NLS_DATE_LANGUAGE=ENGLISH')
+--------------------------------------------------------------------------------
+Friday   : JULY      24, 2026
+
+SQL> Select TO_CHAR(SYSDATE,'DD-MONTH-YYYY') from dual;
+
+TO_CHAR(SYSDATE,'DD-MONTH-YYYY')
+--------------------------------------------
+24-JULY     -2026
+
+SQL> Select TO_CHAR(SYSDATE,'DAY') from dual;
+
+TO_CHAR(SYSDATE,'DAY')
+------------------------------------
+FRIDAY
+
+SQL> Select TO_CHAR(SYSDATE,'DDD') from dual;
+
+TO_
+---
+205
+
+SQL> Select TO_CHAR(SYSDATE,'DD-MM-YY HH:MI:SS') from dual;
+
+TO_CHAR(SYSDATE,'
+-----------------
+24-07-26 10:01:19
+
+SQL> Select TO_CHAR(SYSDATE,'DD-MONTH-YYYY HH:MI:SS') from dual;
+
+TO_CHAR(SYSDATE,'DD-MONTH-YYYYHH:MI:SS')
+-----------------------------------------------------
+24-JULY     -2026 10:01:39
+
+SQL>
+
+
+SQL> select * from customers;
+
+        ID NAME                   AGE ADDRESS             SALARY CITY
+---------- --------------- ---------- --------------- ---------- ----------
+         1 Ramesh                  32 Ahmedabad             2000
+         2 Khilan                  25 Delhi                 1500
+         3 Kaushik                 23 Kota                  2000
+         4 Chaitali                25 Mumbai                6500
+         5 Hardik                  27 Bhopal                8500
+         6 Komal                   22 MP                    4500
+         7 Muffy                   24 Indore               10000
+         9 feferfe                 99 jjjj                  1111
+        10 feferfe                 99 rttr                  1111 HYD
+
+9 rows selected.
+
+SQL> select * from customers where salary>5000;
+
+        ID NAME                   AGE ADDRESS             SALARY CITY
+---------- --------------- ---------- --------------- ---------- ----------
+         4 Chaitali                25 Mumbai                6500
+         5 Hardik                  27 Bhopal                8500
+         7 Muffy                   24 Indore               10000
+
+SQL> create table cust1 select * from customers where salaray>5000;
+create table cust1 select * from customers where salaray>5000
+                   *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+SQL> create table cust1 select * from customers where salary>5000;
+create table cust1 select * from customers where salary>5000
+                   *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+SQL> create table cust1 as select * from customers where salary>5000;
+
+Table created.
+
+SQL>
+SQL*Plus: Release 11.2.0.2.0 Production on Fri Jul 24 10:14:01 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qt235
+Enter password:
+Connected.
+SQL> select * from customers;
+
+        ID NAME                   AGE ADDRESS             SALARY CITY
+---------- --------------- ---------- --------------- ---------- ----------
+         1 Ramesh                  32 Ahmedabad             2000
+         2 Khilan                  25 Delhi                 1500
+         3 Kaushik                 23 Kota                  2000
+         4 Chaitali                25 Mumbai                6500
+         5 Hardik                  27 Bhopal                8500
+         6 Komal                   22 MP                    4500
+         7 Muffy                   24 Indore               10000
+         9 feferfe                 99 jjjj                  1111
+        10 feferfe                 99 rttr                  1111 HYD
+
+9 rows selected.
+
+SQL> select * from cust1;
+
+        ID NAME                   AGE ADDRESS             SALARY CITY
+---------- --------------- ---------- --------------- ---------- ----------
+         4 Chaitali                25 Mumbai                6500
+         5 Hardik                  27 Bhopal                8500
+         7 Muffy                   24 Indore               10000
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+CUST1                          TABLE
+CUSTOMERS                      TABLE
+EMP                            TABLE
+FACEBOOK                       TABLE
+STU1                           TABLE
+STU2                           TABLE
+STU3                           TABLE
+STU4                           TABLE
+STU5                           TABLE
+
+9 rows selected.
+
+SQL
